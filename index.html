@@ -223,9 +223,53 @@
       display:flex;align-items:center;justify-content:center;gap:14px;
       transition:all .3s var(--spring);position:relative;overflow:hidden;
       box-shadow:0 8px 30px rgba(37,211,102,.35);letter-spacing:-.3px;
+      -webkit-tap-highlight-color: transparent;
     }
     .btn-invest-wa:hover { transform:translateY(-3px) scale(1.01); box-shadow:0 14px 40px rgba(37,211,102,.5); }
+    .btn-invest-wa:active { transform:translateY(3px) scale(0.97) !important; box-shadow:0 2px 10px rgba(37,211,102,.3) !important; transition:all .12s ease !important; }
     .btn-invest-wa .wa-icon { width:28px;height:28px;fill:#fff;flex-shrink:0; }
+    /* Ripple on click */
+    .btn-invest-wa .ripple {
+      position:absolute; border-radius:50%; background:rgba(255,255,255,0.25);
+      transform:scale(0); animation:rippleAnim .5s linear;
+      pointer-events:none;
+    }
+    @keyframes rippleAnim { to { transform:scale(4); opacity:0; } }
+
+    /* WHATSAPP FLOAT – press effect */
+    .whatsapp-float:active { transform:scale(0.88) !important; box-shadow:0 2px 10px rgba(37,211,102,.3) !important; transition:transform .1s ease, box-shadow .1s ease !important; }
+
+    /* LEGAL MODAL */
+    .legal-modal {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.96); backdrop-filter:blur(10px);
+      display:flex; align-items:flex-start; justify-content:center;
+      z-index:1100; overflow-y:auto; padding:40px 16px;
+    }
+    .legal-card {
+      background:#0F0F0F; border:1px solid rgba(229,9,20,0.3);
+      border-radius:24px; max-width:720px; width:100%;
+      padding:48px 44px; box-shadow:0 0 80px rgba(229,9,20,.15);
+      animation:fadeUp .35s ease both; position:relative; margin:auto;
+    }
+    .legal-card h2 { font-family:var(--font-d); font-size:1.8rem; font-weight:800; color:var(--accent); margin-bottom:8px; }
+    .legal-card .legal-date { font-size:.78rem; color:var(--text-dim); margin-bottom:32px; }
+    .legal-card h3 { font-family:var(--font-d); font-size:1rem; font-weight:700; color:var(--text-primary); margin:28px 0 10px; }
+    .legal-card p, .legal-card li { font-size:.9rem; color:var(--text-muted); line-height:1.75; }
+    .legal-card ul { padding-left:20px; margin-top:8px; }
+    .legal-card ul li { margin-bottom:6px; }
+    .legal-close {
+      position:sticky; bottom:0; left:0; right:0;
+      background:linear-gradient(0deg,#0F0F0F 80%,transparent);
+      padding:24px 0 0; margin-top:40px; text-align:center;
+    }
+    .legal-close-btn {
+      background:var(--accent); color:#fff; border:none; border-radius:14px;
+      padding:14px 40px; font-size:.95rem; font-weight:700;
+      cursor:pointer; transition:all .2s; display:inline-block;
+    }
+    .legal-close-btn:hover { background:#ff2020; transform:translateY(-2px); }
+    .legal-divider { height:1px; background:rgba(229,9,20,0.15); margin:28px 0; }
 
     .section-tag-gold { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#E50914;margin-bottom:12px; }
 
@@ -341,11 +385,47 @@
       .sim-grid{grid-template-columns:1fr}
       .steps{flex-direction:column;gap:28px}
       .steps::before{display:none}
-      .footer-top{grid-template-columns:1fr}
+      .footer-top{grid-template-columns:1fr 1fr;gap:28px}
       .footer-bottom{flex-direction:column;text-align:center}
       .footer-legal{text-align:center}
       nav .nav-links li:not(:last-child){display:none}
       .inv-card{padding:32px 22px 28px}
+    }
+    @media(max-width:600px){
+      nav { padding:12px 4%; }
+      .logo { font-size:1.2rem; }
+      .logo-icon { width:28px; height:28px; font-size:.75rem; }
+      .hero { padding:90px 4% 48px; min-height:auto; }
+      .hero-title { font-size:clamp(2rem,8vw,2.6rem); letter-spacing:-1px; }
+      .hero-subtitle { font-size:.93rem; }
+      .hours-badge { font-size:.76rem; padding:9px 13px; }
+      .inv-simulator { padding:60px 4% 80px; }
+      .inv-card { padding:24px 16px 22px; border-radius:20px; }
+      .result-value { font-size:1.45rem; }
+      .inv-result-box { padding:16px 12px; }
+      .btn-invest-wa { font-size:1rem; padding:18px 20px; border-radius:14px; gap:10px; }
+      .btn-invest-wa .wa-icon { width:24px; height:24px; }
+      .benefits { padding:70px 4%; }
+      .benefits-grid { grid-template-columns:1fr; }
+      .how { padding:70px 4%; }
+      .testimonials { padding:60px 4%; }
+      .testimonials-grid { grid-template-columns:1fr; }
+      .section-title { font-size:clamp(1.6rem,5.5vw,2.3rem); }
+      .footer-top { grid-template-columns:1fr; gap:24px; }
+      footer { padding:48px 4% 32px; }
+      .whatsapp-float { width:54px; height:54px; bottom:20px; right:16px; }
+      .whatsapp-float svg { width:26px; height:26px; }
+      .auth-card { padding:28px 20px; }
+      .legal-card { padding:32px 20px; }
+      .legal-card h2 { font-size:1.4rem; }
+      .rate-display { font-size:1.15rem; }
+      .user-email { max-width:100px; }
+    }
+    @media(max-width:380px){
+      .hero-title { font-size:1.9rem; }
+      .inv-card { padding:18px 12px; }
+      .btn-invest-wa { font-size:.9rem; padding:16px 14px; }
+      .nav-cta { padding:8px 14px !important; font-size:.8rem !important; }
     }
   </style>
 </head>
@@ -453,7 +533,7 @@
         🔐 Inicia sesión para enviar tu solicitud de inversión por WhatsApp
       </div>
 
-      <button class="btn-invest-wa" id="btn-inv-wa" onclick="solicitarInversion()">
+      <button class="btn-invest-wa" id="btn-inv-wa" onclick="solicitarInversion()" onmousedown="crearRipple(event,this)">
         <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         <div>
           <div style="font-size:1.05rem;">Quiero invertir por WhatsApp</div>
@@ -512,13 +592,32 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
-      <div class="footer-col"><h4>Servicios</h4><ul class="footer-links"><li><a href="#invertir">Simulador de inversión</a></li><li><a href="#beneficios">Planes de inversión</a></li><li><a href="#">Retiros</a></li></ul></div>
-      <div class="footer-col"><h4>Empresa</h4><ul class="footer-links"><li><a href="#">Sobre nosotros</a></li><li><a href="#">Términos y condiciones</a></li><li><a href="#">Política de privacidad</a></li></ul></div>
-      <div class="footer-col"><h4>Contacto</h4><ul class="footer-links"><li><a href="#">WhatsApp</a></li><li><a href="#">Horario: 8am – 5pm</a></li><li><a href="#">Lunes a Viernes</a></li></ul></div>
+      <div class="footer-col">
+        <div style="margin-bottom:18px;">
+          <div style="font-family:var(--font-d);font-weight:800;font-size:1.3rem;color:#E50914;margin-bottom:6px;">A&amp;A</div>
+          <p style="font-size:.85rem;color:var(--text-muted);line-height:1.6;max-width:240px;">Hacemos crecer tu dinero con transparencia, seguridad y rendimientos reales.</p>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Servicios</h4><ul class="footer-links"><li><a href="#invertir">Simulador de inversión</a></li><li><a href="#beneficios">Planes de inversión</a></li><li><a href="#como-funciona">Cómo funciona</a></li></ul></div>
+      <div class="footer-col"><h4>Legal</h4><ul class="footer-links">
+        <li><a href="#" onclick="abrirLegal('terminos');return false;">Términos y condiciones</a></li>
+        <li><a href="#" onclick="abrirLegal('privacidad');return false;">Política de privacidad</a></li>
+        <li><a href="#" onclick="abrirLegal('riesgos');return false;">Aviso de riesgos</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contacto</h4><ul class="footer-links">
+        <li><a href="#" onclick="abrirWhatsAppGeneral();return false;">💬 WhatsApp directo</a></li>
+        <li><a href="#">📅 Lun–Vie 8am–5pm</a></li>
+        <li><a href="#">📅 Sáb 8am–12pm</a></li>
+      </ul></div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 A&amp;A. Todos los derechos reservados.</p>
-      <p class="footer-legal">Las tasas mostradas son referenciales. Invertir implica riesgos, consulte los términos antes de realizar cualquier operación.</p>
+      <p class="footer-copy">© 2025 A&amp;A Inversiones. Todos los derechos reservados.</p>
+      <div style="display:flex;gap:18px;flex-wrap:wrap;justify-content:center;">
+        <a href="#" onclick="abrirLegal('terminos');return false;" style="font-size:.78rem;color:var(--text-dim);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#E50914'" onmouseout="this.style.color=''">Términos</a>
+        <a href="#" onclick="abrirLegal('privacidad');return false;" style="font-size:.78rem;color:var(--text-dim);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#E50914'" onmouseout="this.style.color=''">Privacidad</a>
+        <a href="#" onclick="abrirLegal('riesgos');return false;" style="font-size:.78rem;color:var(--text-dim);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#E50914'" onmouseout="this.style.color=''">Riesgos</a>
+      </div>
+      <p class="footer-legal">Las tasas son referenciales. Invertir implica riesgos. Consulta los <a href="#" onclick="abrirLegal('terminos');return false;" style="color:var(--accent);text-decoration:none;">términos</a> antes de operar.</p>
     </div>
   </div>
 </footer>
@@ -871,6 +970,170 @@
     actualizarTasaDisplay(7.5);
     calcularInversion();
   });
+</script>
+
+<!-- MODAL TÉRMINOS Y CONDICIONES -->
+<div id="modalTerminos" class="legal-modal" style="display:none;" onclick="if(event.target===this)cerrarLegal('terminos')">
+  <div class="legal-card">
+    <h2>📄 Términos y Condiciones</h2>
+    <p class="legal-date">Última actualización: enero de 2025</p>
+
+    <h3>1. Aceptación</h3>
+    <p>Al acceder y usar los servicios de A&A Inversiones, aceptas quedar vinculado a estos Términos y Condiciones. Si no estás de acuerdo con alguna de estas condiciones, te pedimos no usar nuestros servicios.</p>
+
+    <div class="legal-divider"></div>
+    <h3>2. Descripción del servicio</h3>
+    <p>A&A Inversiones ofrece un servicio de administración de inversiones personales con rendimientos pactados mensualmente. Las operaciones se formalizan mediante acuerdo directo entre las partes y la gestión se realiza a través de canales digitales incluyendo WhatsApp.</p>
+
+    <div class="legal-divider"></div>
+    <h3>3. Condiciones de inversión</h3>
+    <ul>
+      <li>El monto mínimo de inversión es de <strong>$100.000 COP</strong>.</li>
+      <li>Las tasas de rendimiento van del <strong>5% al 10% mensual</strong> según el plan seleccionado.</li>
+      <li>Los rendimientos son pagados al finalizar cada período mensual acordado.</li>
+      <li>Los retiros deben solicitarse con al menos <strong>24 horas hábiles</strong> de anticipación.</li>
+      <li>Las tasas mostradas en el simulador son referenciales y pueden variar.</li>
+    </ul>
+
+    <div class="legal-divider"></div>
+    <h3>4. Obligaciones del inversionista</h3>
+    <ul>
+      <li>Proporcionar información veraz y actualizada al momento de registrarse.</li>
+      <li>No transferir o ceder su cuenta a terceros.</li>
+      <li>Notificar de inmediato cualquier uso no autorizado de su cuenta.</li>
+      <li>Comprender y aceptar los riesgos inherentes a las inversiones.</li>
+    </ul>
+
+    <div class="legal-divider"></div>
+    <h3>5. Limitación de responsabilidad</h3>
+    <p>A&A Inversiones no se hace responsable por pérdidas derivadas de decisiones de inversión basadas en proyecciones. Las ganancias pasadas no garantizan resultados futuros. Toda inversión conlleva riesgo.</p>
+
+    <div class="legal-divider"></div>
+    <h3>6. Modificaciones</h3>
+    <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Los cambios serán notificados a través de nuestros canales oficiales y entrarán en vigor a los 5 días hábiles de su publicación.</p>
+
+    <div class="legal-divider"></div>
+    <h3>7. Contacto</h3>
+    <p>Para consultas sobre estos términos, comunícate por WhatsApp al número oficial de A&A Inversiones en horario de atención.</p>
+
+    <div class="legal-close">
+      <button class="legal-close-btn" onclick="cerrarLegal('terminos')">Entendido ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL POLÍTICA DE PRIVACIDAD -->
+<div id="modalPrivacidad" class="legal-modal" style="display:none;" onclick="if(event.target===this)cerrarLegal('privacidad')">
+  <div class="legal-card">
+    <h2>🔒 Política de Privacidad</h2>
+    <p class="legal-date">Última actualización: enero de 2025</p>
+
+    <h3>1. Datos que recopilamos</h3>
+    <p>Al usar nuestros servicios, recopilamos:</p>
+    <ul>
+      <li><strong>Datos de registro:</strong> nombre, correo electrónico y número de teléfono.</li>
+      <li><strong>Datos de inversión:</strong> montos, tasas y fechas de operaciones.</li>
+      <li><strong>Datos de uso:</strong> páginas visitadas, interacciones y preferencias.</li>
+    </ul>
+
+    <div class="legal-divider"></div>
+    <h3>2. Uso de la información</h3>
+    <p>Usamos tus datos exclusivamente para:</p>
+    <ul>
+      <li>Gestionar tu cuenta y operaciones de inversión.</li>
+      <li>Enviarte notificaciones sobre tus rendimientos.</li>
+      <li>Mejorar nuestros servicios y experiencia de usuario.</li>
+      <li>Cumplir con obligaciones legales y regulatorias.</li>
+    </ul>
+
+    <div class="legal-divider"></div>
+    <h3>3. Almacenamiento y seguridad</h3>
+    <p>Tu información es almacenada en servidores seguros mediante Firebase (Google Cloud). Utilizamos cifrado en tránsito (HTTPS) y en reposo. Nunca vendemos ni cedemos tus datos a terceros sin tu consentimiento expreso.</p>
+
+    <div class="legal-divider"></div>
+    <h3>4. Cookies</h3>
+    <p>Nuestro sitio puede usar cookies de sesión para mejorar la experiencia de navegación. No usamos cookies de seguimiento ni publicidad de terceros.</p>
+
+    <div class="legal-divider"></div>
+    <h3>5. Tus derechos</h3>
+    <p>Tienes derecho a:</p>
+    <ul>
+      <li>Acceder, corregir o eliminar tus datos personales.</li>
+      <li>Solicitar la portabilidad de tu información.</li>
+      <li>Retirar tu consentimiento en cualquier momento.</li>
+    </ul>
+    <p style="margin-top:10px;">Para ejercer estos derechos, contáctanos por WhatsApp en horario de atención.</p>
+
+    <div class="legal-divider"></div>
+    <h3>6. Menores de edad</h3>
+    <p>Nuestros servicios están dirigidos exclusivamente a personas mayores de 18 años. No recopilamos intencionalmente datos de menores.</p>
+
+    <div class="legal-close">
+      <button class="legal-close-btn" onclick="cerrarLegal('privacidad')">Entendido ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL AVISO DE RIESGOS -->
+<div id="modalRiesgos" class="legal-modal" style="display:none;" onclick="if(event.target===this)cerrarLegal('riesgos')">
+  <div class="legal-card">
+    <h2>⚠️ Aviso de Riesgos</h2>
+    <p class="legal-date">Última actualización: enero de 2025</p>
+
+    <h3>Riesgo de mercado</h3>
+    <p>Las inversiones están sujetas a fluctuaciones del mercado. Los rendimientos pasados no son garantía de resultados futuros. El valor de tu inversión puede aumentar o disminuir.</p>
+
+    <div class="legal-divider"></div>
+    <h3>Riesgo de liquidez</h3>
+    <p>Aunque los retiros se procesan en 24 horas hábiles en condiciones normales, situaciones extraordinarias de mercado podrían retrasar los tiempos de respuesta.</p>
+
+    <div class="legal-divider"></div>
+    <h3>Riesgo de tasa</h3>
+    <p>Las tasas de rendimiento del 5% al 10% mensual son proyecciones basadas en condiciones actuales. A&A Inversiones se reserva el derecho de ajustar tasas ante cambios económicos, con previo aviso al inversionista.</p>
+
+    <div class="legal-divider"></div>
+    <h3>Recomendaciones</h3>
+    <ul>
+      <li>Nunca inviertas dinero que no puedas permitirte perder.</li>
+      <li>Diversifica tus inversiones; no concentres todo tu capital aquí.</li>
+      <li>Consulta un asesor financiero independiente si tienes dudas.</li>
+      <li>Lee y comprende los Términos y Condiciones antes de invertir.</li>
+    </ul>
+
+    <div class="legal-divider"></div>
+    <p style="background:rgba(229,9,20,0.08);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:14px 16px;font-size:.85rem;color:var(--accent);">
+      <strong>Importante:</strong> Este aviso no constituye asesoría financiera. La decisión de invertir es tuya y debes tomarla con plena conciencia de los riesgos descritos.
+    </p>
+
+    <div class="legal-close">
+      <button class="legal-close-btn" onclick="cerrarLegal('riesgos')">Entendido ✓</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function abrirLegal(tipo) {
+    const ids = { terminos:'modalTerminos', privacidad:'modalPrivacidad', riesgos:'modalRiesgos' };
+    const el = document.getElementById(ids[tipo]);
+    if (el) { el.style.display='flex'; document.body.style.overflow='hidden'; el.scrollTop=0; }
+  }
+  function cerrarLegal(tipo) {
+    const ids = { terminos:'modalTerminos', privacidad:'modalPrivacidad', riesgos:'modalRiesgos' };
+    const el = document.getElementById(ids[tipo]);
+    if (el) { el.style.display='none'; document.body.style.overflow=''; }
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') ['terminos','privacidad','riesgos'].forEach(cerrarLegal);
+  });
+  function crearRipple(e, btn) {
+    const circle = document.createElement('span');
+    const d = Math.max(btn.clientWidth, btn.clientHeight);
+    const r = btn.getBoundingClientRect();
+    circle.className = 'ripple';
+    circle.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;
+    btn.appendChild(circle);
+    setTimeout(() => circle.remove(), 600);
+  }
 </script>
 
 </body>

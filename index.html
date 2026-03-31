@@ -851,12 +851,10 @@
     }, { threshold:.1, rootMargin:'0px 0px -50px 0px' });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   })();
-
   // Navbar scroll
   window.addEventListener('scroll', () =>
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40)
   );
-
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a =>
     a.addEventListener('click', e => {
@@ -864,7 +862,6 @@
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     })
   );
-
   // Init
   window.addEventListener('DOMContentLoaded', () => {
     invMontoInput.value  = 500000;
@@ -873,6 +870,5 @@
     calcularInversion();
   });
 </script>
-
 </body>
 </html>

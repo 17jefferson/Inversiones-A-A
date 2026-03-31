@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A&A — Inversiones seguras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep:      #000000;
+      --bg-card:      #0F0F0F;
+      --border:       rgba(229,9,20,0.2);
+      --accent:       #E50914;
+      --accent2:      #B91C1C;
+      --accent3:      #FF4D4D;
+      --accent-glow:  rgba(229,9,20,0.4);
+      --accent2-glow: rgba(185,28,28,0.3);
+      --wa-green:     #25d366;
+      --text-primary: #FFFFFF;
+      --text-muted:   #B0B0B0;
+      --text-dim:     #5A5A5A;
+      --radius-lg:    20px;
+      --radius-xl:    32px;
+      --font-d:       'Sora', sans-serif;
+      --font-b:       'DM Sans', sans-serif;
+      --ease:         cubic-bezier(0.4,0,0.2,1);
+      --spring:       cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-b); background: var(--bg-deep); color: var(--text-primary); overflow-x: hidden; line-height: 1.65; }
+
+    /* Noise */
+    body::after {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* NAV */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 5%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+      border-bottom:1px solid var(--border);
+      transition:background .4s var(--ease);
+    }
+    nav.scrolled { background: rgba(0,0,0,0.97); }
+
+    .logo {
+      font-family:var(--font-d); font-weight:800; font-size:1.45rem;
+      letter-spacing:-0.5px; color:var(--text-primary); text-decoration:none;
+      display:flex; align-items:center; gap:9px;
+    }
+    .logo-icon {
+      width:32px; height:32px; background:var(--accent); border-radius:9px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.85rem; color:#000; font-weight:800;
+    }
+    .logo span { color:var(--accent); }
+
+    .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
+    .nav-links a { color:var(--text-muted); text-decoration:none; font-size:.88rem; font-weight:500; transition:color .25s; }
+    .nav-links a:hover { color:var(--accent); }
+    .nav-cta {
+      background:var(--accent) !important; color:#000 !important;
+      font-weight:700 !important; padding:10px 22px !important;
+      border-radius:50px; transition:all .3s var(--spring) !important;
+    }
+    .nav-cta:hover { transform:translateY(-2px) scale(1.04) !important; box-shadow:0 0 28px var(--accent-glow) !important; background:#ff2a2a !important; }
+
+    .user-info {
+      background:rgba(229,9,20,0.15);
+      border-left:2px solid var(--accent);
+      padding:5px 15px;
+      border-radius:40px;
+      font-size:.8rem;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .user-email {
+      max-width:150px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .logout-btn {
+      background:var(--accent);
+      border:none;
+      color:#fff;
+      padding:4px 12px;
+      border-radius:30px;
+      font-size:.7rem;
+      font-weight:bold;
+      cursor:pointer;
+      transition:all .2s;
+    }
+    .logout-btn:hover {
+      background:#ff2a2a;
+      transform:scale(1.02);
+    }
+
+    /* HERO (simplificada) */
+    .hero {
+      min-height:80vh; display:flex; align-items:center; justify-content:center;
+      padding:120px 5% 60px; position:relative; overflow:hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0;
+      background-image: linear-gradient(rgba(229,9,20,.04) 1px,transparent 1px), linear-gradient(90deg,rgba(229,9,20,.04) 1px,transparent 1px);
+      background-size:60px 60px;
+      mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black 30%,transparent 100%);
+    }
+
+    .orb { position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; will-change:transform; }
+    .orb-1 { width:700px;height:700px;opacity:.28; background:radial-gradient(circle,var(--accent) 0%,transparent 65%); top:-250px;left:-200px; animation:orb1 12s ease-in-out infinite; }
+    .orb-2 { width:600px;height:600px;opacity:.22; background:radial-gradient(circle,var(--accent2) 0%,transparent 65%); bottom:-200px;right:-150px; animation:orb2 10s ease-in-out infinite; }
+    @keyframes orb1 { 0%,100%{transform:translate(0,0) scale(1)} 40%{transform:translate(60px,-50px) scale(1.08)} 70%{transform:translate(-30px,30px) scale(.94)} }
+    @keyframes orb2 { 0%,100%{transform:translate(0,0) scale(1)} 35%{transform:translate(-50px,40px) scale(1.06)} 65%{transform:translate(40px,-35px) scale(.96)} }
+
+    .hero-inner { max-width:900px;width:100%; margin:0 auto; text-align:center; position:relative;z-index:1; }
+
+    .hero-badge {
+      display:inline-flex;align-items:center;gap:10px;
+      background:rgba(229,9,20,.08); border:1px solid rgba(229,9,20,.28);
+      border-radius:50px; padding:7px 18px;
+      font-size:.78rem;font-weight:700;color:var(--accent);
+      margin-bottom:26px; letter-spacing:.5px;
+      animation:fadeUp .6s ease both;
+    }
+    .badge-dot { width:7px;height:7px;background:var(--accent);border-radius:50%; animation:pulseDot 2s ease-in-out infinite; }
+    @keyframes pulseDot { 0%,100%{box-shadow:0 0 0 0 rgba(229,9,20,.5)} 50%{box-shadow:0 0 0 5px rgba(229,9,20,0)} }
+
+    .hero-title {
+      font-family:var(--font-d); font-size:clamp(2.5rem,5vw,3.9rem);
+      font-weight:800; line-height:1.07; letter-spacing:-2px; margin-bottom:22px;
+      animation:fadeUp .65s ease .1s both;
+    }
+    .gradient-text { background:linear-gradient(120deg,var(--accent) 0%,var(--accent2) 100%); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+
+    .hero-subtitle { font-size:1.05rem;color:var(--text-muted);max-width:600px;margin:0 auto 22px;line-height:1.7; animation:fadeUp .65s ease .2s both; }
+
+    .hours-badge {
+      display:inline-flex;align-items:center;gap:9px;
+      background:rgba(229,9,20,.08);border:1px solid rgba(229,9,20,.25);
+      border-radius:10px;padding:11px 16px;margin-bottom:32px;
+      font-size:.84rem;font-weight:500;color:var(--accent2);
+      animation:fadeUp .65s ease .25s both;
+    }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+
+    /* INVESTMENT SIMULATOR */
+    .inv-simulator {
+      padding:80px 5% 100px;
+      background:linear-gradient(180deg,transparent 0%,rgba(15,15,15,0.8) 20%,rgba(15,15,15,0.8) 80%,transparent 100%);
+    }
+    .inv-simulator .simulator-container { max-width:860px;margin:0 auto; }
+
+    .inv-card {
+      background: linear-gradient(135deg, #0F0F0F 0%, #0A0A0A 50%, #0F0F0F 100%);
+      border:1px solid rgba(229,9,20,0.2);
+      border-radius:var(--radius-xl);
+      padding:50px 50px 44px;
+      box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 60px rgba(229,9,20,0.05);
+      position:relative;overflow:hidden;
+    }
+    .inv-card::before {
+      content:'';position:absolute;top:0;left:0;right:0;height:3px;
+      background:linear-gradient(90deg,#E50914,#B91C1C,#E50914);
+      border-radius:var(--radius-xl) var(--radius-xl) 0 0;
+      background-size:200% 100%;
+      animation:investGrad 3s linear infinite;
+    }
+    @keyframes investGrad { 0%{background-position:0% 0%} 100%{background-position:200% 0%} }
+    .inv-card::after {
+      content:'';position:absolute;top:-100px;left:-80px;
+      width:300px;height:300px;
+      background:radial-gradient(circle,rgba(229,9,20,0.06) 0%,transparent 70%);
+      pointer-events:none;
+    }
+
+    .inv-tasa-bar {
+      background:rgba(229,9,20,0.07);
+      border:1px solid rgba(229,9,20,0.2);
+      border-radius:12px;padding:13px 18px;
+      font-size:.83rem;color:#E50914;
+      display:flex;align-items:center;justify-content:center;
+      gap:10px;margin-bottom:32px;flex-wrap:wrap;text-align:center;
+    }
+    .inv-tasa-bar strong { font-weight:700;color:var(--text-primary); }
+
+    .sim-grid { display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:28px; }
+    .field-group { display:flex;flex-direction:column;gap:10px; }
+    .field-label { font-size:.8rem;font-weight:700;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;display:flex;align-items:center;gap:6px; }
+    .field-input-wrapper { position:relative; }
+    .field-prefix { position:absolute;left:16px;top:50%;transform:translateY(-50%);font-family:var(--font-d);font-weight:700;color:var(--accent);font-size:1.1rem;pointer-events:none; }
+
+    input[type="number"] {
+      width:100%;background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:14px;
+      padding:17px 16px 17px 38px;font-family:var(--font-d);font-size:1.25rem;font-weight:700;
+      color:var(--text-primary);outline:none;transition:all .25s var(--ease);-moz-appearance:textfield;
+    }
+    input[type="number"]:focus { border-color:var(--accent);background:rgba(229,9,20,.045);box-shadow:0 0 0 4px rgba(229,9,20,.12); }
+
+    .slider-wrap { margin-top:8px; }
+    input[type="range"] { width:100%;-webkit-appearance:none;height:5px;background:rgba(255,255,255,.08);border-radius:3px;outline:none;cursor:pointer; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none;width:20px;height:20px;background:var(--accent);border-radius:50%;border:3px solid var(--bg-card);box-shadow:0 0 0 2px var(--accent);transition:all .25s var(--spring); }
+    .range-labels { display:flex;justify-content:space-between;font-size:.72rem;color:var(--text-dim);margin-top:4px; }
+
+    .rate-selector {
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px;
+    }
+    .rate-track {
+      flex:1; display:flex; align-items:center; gap:8px;
+    }
+    input[type="range"].inv-range {
+      width:100%;-webkit-appearance:none;height:5px;
+      background:linear-gradient(90deg, #E50914 var(--fill,50%), rgba(255,255,255,.08) var(--fill,50%));
+      border-radius:3px;outline:none;cursor:pointer;
+    }
+    input[type="range"].inv-range::-webkit-slider-thumb {
+      -webkit-appearance:none;width:22px;height:22px;
+      background:linear-gradient(135deg,#E50914,#B91C1C);
+      border-radius:50%;border:3px solid var(--bg-card);
+      box-shadow:0 0 0 2px #E50914, 0 0 15px rgba(229,9,20,.4);
+      transition:all .25s var(--spring);
+    }
+    .rate-display {
+      font-family:var(--font-d);font-weight:800;font-size:1.4rem;
+      color:#E50914;min-width:52px;text-align:right;
+      text-shadow:0 0 20px rgba(229,9,20,.5);
+    }
+
+    /* Investment result boxes */
+    .inv-result-box {
+      background:rgba(255,255,255,.025);border:1px solid rgba(229,9,20,0.1);
+      border-radius:16px;padding:22px;text-align:center;
+      transition:all .25s var(--ease);
+    }
+    .inv-result-box:hover { border-color:rgba(229,9,20,.3); }
+    .inv-result-box.inv-highlight {
+      background:rgba(229,9,20,0.08);
+      border-color:rgba(229,9,20,0.35);
+      box-shadow:0 0 30px rgba(229,9,20,.12);
+    }
+    .inv-result-box.inv-highlight .result-value { color:#E50914; }
+    .result-value { font-family:var(--font-d);font-size:1.85rem;font-weight:800;color:var(--text-primary);letter-spacing:-1px; }
+    .result-label { font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px; }
+    .result-note { font-size:.7rem;color:var(--text-dim);margin-top:4px; }
+
+    /* Invest WA button */
+    .btn-invest-wa {
+      width:100%;padding:22px 30px;
+      background:linear-gradient(135deg,#25d366 0%,#1aad54 60%,#128c3e 100%);
+      color:#fff;font-family:var(--font-d);font-weight:800;font-size:1.15rem;
+      border-radius:18px;border:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      transition:all .3s var(--spring);position:relative;overflow:hidden;
+      box-shadow:0 8px 30px rgba(37,211,102,.35);letter-spacing:-.3px;
+    }
+    .btn-invest-wa:disabled { opacity:.4;cursor:not-allowed;transform:none;box-shadow:none; }
+    .btn-invest-wa .wa-icon { width:28px;height:28px;fill:#fff;flex-shrink:0; }
+
+    .section-tag-gold { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#E50914;margin-bottom:12px; }
+
+    /* BENEFITS, HOW, TESTIMONIALS, FOOTER (mismo estilo, sin cambios) */
+    section { position:relative;z-index:1; }
+    .section-header { text-align:center;margin-bottom:56px; }
+    .section-tag { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px; }
+    .section-title { font-family:var(--font-d);font-size:clamp(2rem,4vw,2.9rem);font-weight:800;letter-spacing:-1px;line-height:1.15; }
+    .section-sub { color:var(--text-muted);font-size:1rem;margin-top:14px;max-width:500px;margin-left:auto;margin-right:auto; }
+
+    .benefits { padding:100px 5%; }
+    .benefits-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1100px;margin:0 auto; }
+    .benefit-card {
+      background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 30px;
+      transition:all .3s var(--spring);
+    }
+    .benefit-card:hover { border-color:rgba(229,9,20,.3);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 35px rgba(229,9,20,.1); }
+    .benefit-icon { width:56px;height:56px;background:rgba(229,9,20,.1);border:1px solid rgba(229,9,20,.2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px; }
+    .benefit-title { font-family:var(--font-d);font-size:1.12rem;font-weight:700;margin-bottom:10px; }
+    .benefit-text { font-size:.9rem;color:var(--text-muted);line-height:1.7; }
+
+    .how { padding:100px 5%;background:linear-gradient(180deg,transparent 0%,rgba(15,15,15,.7) 20%,rgba(15,15,15,.7) 80%,transparent 100%); }
+    .steps { display:flex;gap:0;max-width:900px;margin:0 auto;position:relative; }
+    .steps::before { content:'';position:absolute;top:27px;left:calc(12.5% + 28px);right:calc(12.5% + 28px);height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:0; }
+    .step { flex:1;text-align:center;padding:0 14px;position:relative;z-index:1; }
+    .step-dot { width:54px;height:54px;background:var(--bg-card);border:2px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-weight:800;font-size:1.1rem;color:var(--accent);margin:0 auto 20px;box-shadow:0 0 25px rgba(229,9,20,.25); }
+    .step-title { font-family:var(--font-d);font-size:1rem;font-weight:700;margin-bottom:8px; }
+    .step-text { font-size:.84rem;color:var(--text-muted); }
+
+    .testimonials { padding:80px 5%; }
+    .testimonials-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1000px;margin:0 auto; }
+    .testimonial-card { background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px; }
+    .stars { color:var(--accent);font-size:.88rem;margin-bottom:14px;letter-spacing:2px; }
+    .testimonial-text { font-size:.9rem;color:var(--text-muted);line-height:1.7;margin-bottom:18px;font-style:italic; }
+    .testimonial-author { display:flex;align-items:center;gap:12px; }
+    .author-avatar { width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:#000;flex-shrink:0; }
+    .author-name { font-weight:600;font-size:.9rem; }
+    .author-location { font-size:.77rem;color:var(--text-dim); }
+
+    footer { padding:60px 5% 40px;border-top:1px solid var(--border); }
+    .footer-inner { max-width:1100px;margin:0 auto; }
+    .footer-top { display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;margin-bottom:48px; }
+    .footer-col h4 { font-family:var(--font-d);font-size:.83rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text-primary);margin-bottom:16px; }
+    .footer-links { list-style:none; }
+    .footer-links li { margin-bottom:10px; }
+    .footer-links a { text-decoration:none;color:var(--text-muted);font-size:.88rem;transition:color .25s; }
+    .footer-links a:hover { color:var(--accent); }
+    .footer-bottom { display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--border);flex-wrap:wrap;gap:12px; }
+    .footer-copy { font-size:.82rem;color:var(--text-dim); }
+    .footer-legal { font-size:.78rem;color:var(--text-dim);max-width:500px;text-align:right;line-height:1.5; }
+
+    /* FLOATING WA */
+    .whatsapp-float {
+      position:fixed;bottom:28px;right:28px;z-index:300;
+      width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,#25d366,#1aad54);
+      box-shadow:0 6px 30px rgba(37,211,102,.55);
+      animation:fadeInFloat 1s ease 2s both, floatWA 3s ease-in-out 3s infinite;
+    }
+    .whatsapp-float svg { width:32px;height:32px;fill:#fff; }
+    @keyframes fadeInFloat { from{opacity:0;transform:scale(.4)} to{opacity:1;transform:scale(1)} }
+    @keyframes floatWA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+    /* REVEAL */
+    .reveal { opacity:0;transform:translateY(38px);transition:opacity .7s var(--ease),transform .7s var(--ease); }
+    .reveal.revealed { opacity:1;transform:translateY(0); }
+
+    /* MODAL AUTH (Google) */
+    .auth-modal {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.95); backdrop-filter:blur(8px);
+      display:flex; align-items:center; justify-content:center;
+      z-index:1000;
+    }
+    .auth-card {
+      background:#0F0F0F; padding:30px; border-radius:28px;
+      max-width:400px; width:90%; border:1px solid rgba(229,9,20,0.4);
+      box-shadow:0 0 50px rgba(229,9,20,0.3);
+      text-align:center;
+    }
+    .auth-card h2 { color:#E50914; margin-bottom:20px; font-family:var(--font-d); }
+    .auth-card .google-btn {
+      background:#4285F4; color:white; border:none; border-radius:12px;
+      padding:12px 20px; font-size:1rem; font-weight:bold;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      width:100%; cursor:pointer; transition:all .2s;
+    }
+    .auth-card .google-btn:hover { background:#3367D6; transform:scale(1.02); }
+    .auth-card .close-btn {
+      background:#333; color:white; border:none; border-radius:12px;
+      padding:10px; width:100%; margin-top:15px; cursor:pointer;
+    }
+
+    @media(max-width:900px){
+      .sim-grid{grid-template-columns:1fr}
+      .steps{flex-direction:column;gap:28px}
+      .steps::before{display:none}
+      .footer-top{grid-template-columns:1fr}
+      .footer-bottom{flex-direction:column;text-align:center}
+      .footer-legal{text-align:center}
+      nav .nav-links li:not(:last-child){display:none}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">
+    <div class="logo-icon">A</div>
+    <span style="color:#FF0000; font-weight:bold;">A&amp;A</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#invertir">Invertir</a></li>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="#como-funciona">Cómo funciona</a></li>
+    <li><a href="#" id="accountBtn" class="nav-cta">Mi Cuenta</a></li>
+  </ul>
+  <div id="userInfoArea" class="user-info" style="display:none;">
+    <span class="user-email" id="userEmailDisplay"></span>
+    <button class="logout-btn" id="logoutBtn">Salir</button>
+  </div>
+</nav>
+
+<!-- HERO (simplificada) -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><div class="badge-dot"></div>💹 Haz crecer tu dinero</div>
+    <h1 class="hero-title">Inversiones <span class="gradient-text">seguras</span><br>con altos rendimientos</h1>
+    <p class="hero-subtitle">Invierte desde $100.000 y obtén hasta un 10% mensual. Sin sorpresas, todo digital.</p>
+    <div class="hours-badge">🕗 Atención: Lunes a Viernes 8:00 AM – 5:00 PM · Sábados 8:00 AM – 12:00 PM</div>
+  </div>
+</section>
+
+<!-- SIMULADOR DE INVERSIÓN (única sección principal) -->
+<section class="inv-simulator" id="invertir">
+  <div class="simulator-container">
+    <div class="section-header reveal">
+      <div class="section-tag-gold">💹 Simula tu inversión</div>
+      <h2 class="section-title">¿Cuánto quieres <span style="background:linear-gradient(120deg,#E50914,#B91C1C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">invertir</span>?</h2>
+      <p class="section-sub">Ajusta el monto y la tasa de rendimiento. Calculamos tu ganancia al instante.</p>
+    </div>
+
+    <div class="inv-card reveal">
+      <div class="inv-tasa-bar">
+        📈 Rendimiento mensual: <strong id="inv-tasa-display">7.5%</strong> &nbsp;·&nbsp; Varía entre <strong>5%</strong> y <strong>10%</strong> según el plan
+      </div>
+
+      <div class="sim-grid">
+        <!-- Capital a invertir -->
+        <div class="field-group">
+          <label class="field-label" style="color:#E50914;">💰 Capital a invertir</label>
+          <div class="field-input-wrapper">
+            <span class="field-prefix" style="color:#E50914;">$</span>
+            <input type="number" id="inv-monto" placeholder="100.000" min="100000" max="10000000" step="100000" style="border-color:rgba(229,9,20,0.2);" />
+          </div>
+          <div class="slider-wrap">
+            <input type="range" class="inv-range" id="inv-monto-slider" min="100000" max="10000000" step="100000" value="500000" />
+            <div class="range-labels"><span>$100.000</span><span>$10.000.000</span></div>
+          </div>
+        </div>
+
+        <!-- Tasa de rendimiento -->
+        <div class="field-group">
+          <label class="field-label" style="color:#E50914;">📊 Tasa de rendimiento mensual</label>
+          <div class="rate-selector">
+            <div class="rate-track">
+              <input type="range" class="inv-range" id="inv-tasa-slider" min="5" max="10" step="0.5" value="7.5" oninput="actualizarTasaDisplay(this.value)" />
+            </div>
+            <span class="rate-display" id="inv-tasa-val">7.5%</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px;">
+            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(5)">
+              <div style="font-weight:800;color:#E50914;">5%</div>
+              <div style="font-size:.68rem;">Plan Básico</div>
+            </div>
+            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(7.5)">
+              <div style="font-weight:800;color:#E50914;">7.5%</div>
+              <div style="font-size:.68rem;">Plan Plus</div>
+            </div>
+            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(10)">
+              <div style="font-weight:800;color:#E50914;">10%</div>
+              <div style="font-size:.68rem;">Plan Premium</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="sim-results" id="inv-results" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0;">
+        <div class="inv-result-box">
+          <div class="result-label">💵 Capital invertido</div>
+          <div class="result-value" id="inv-r-capital">$0</div>
+          <div class="result-note">Lo que pones</div>
+        </div>
+        <div class="inv-result-box">
+          <div class="result-label">📈 Ganancia mensual</div>
+          <div class="result-value" id="inv-r-ganancia">$0</div>
+          <div class="result-note">Rendimiento del período</div>
+        </div>
+        <div class="inv-result-box inv-highlight" style="grid-column:span 2">
+          <div class="result-label">🏆 Total a recibir</div>
+          <div class="result-value" id="inv-r-total">$0</div>
+          <div class="result-note">Capital + rendimiento al finalizar el mes</div>
+        </div>
+      </div>
+
+      <!-- WA Button -->
+      <button class="btn-invest-wa" id="btn-inv-wa" onclick="solicitarInversion()" disabled>
+        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        <div class="wa-text-block">
+          <span class="wa-main-text">Quiero invertir por WhatsApp</span>
+          <span class="wa-sub-text">Habla con un asesor · Sin costo</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section class="benefits" id="beneficios">
+  <div class="section-header reveal">
+    <div class="section-tag">¿Por qué invertir con nosotros?</div>
+    <h2 class="section-title">Todo lo que necesitas<br>en un solo lugar</h2>
+    <p class="section-sub">Diseñamos cada proceso pensando en tu comodidad y seguridad.</p>
+  </div>
+  <div class="benefits-grid">
+    <div class="benefit-card reveal"><div class="benefit-icon">⚡</div><h3 class="benefit-title">Rendimientos atractivos</h3><p class="benefit-text">Hasta un 10% mensual, superando a cualquier fondo tradicional.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">🔐</div><h3 class="benefit-title">100% seguro</h3><p class="benefit-text">Tu inversión está respaldada por contratos claros y transparencia total.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">📱</div><h3 class="benefit-title">Gestión por WhatsApp</h3><p class="benefit-text">Consulta tu saldo y rendimientos directamente desde tu celular.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">💸</div><h3 class="benefit-title">Retiros rápidos</h3><p class="benefit-text">Solicita tu dinero cuando quieras, lo recibes en tu cuenta en 24h hábiles.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">🤝</div><h3 class="benefit-title">Atención personalizada</h3><p class="benefit-text">Un asesor real disponible en horario de atención para guiarte.</p></div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="how" id="como-funciona">
+  <div class="section-header reveal">
+    <div class="section-tag">Proceso simple</div>
+    <h2 class="section-title">Invierte en 4 pasos</h2>
+    <p class="section-sub">Desde tu celular, en minutos, sin complicaciones.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step"><div class="step-dot">1</div><div class="step-title">Simula</div><p class="step-text">Elige el monto y la tasa que más te convenga.</p></div>
+    <div class="step"><div class="step-dot">2</div><div class="step-title">Regístrate</div><p class="step-text">Crea tu cuenta con Google o email.</p></div>
+    <div class="step"><div class="step-dot">3</div><div class="step-title">Confirma</div><p class="step-text">Te contactamos por WhatsApp para formalizar la inversión.</p></div>
+    <div class="step"><div class="step-dot">4</div><div class="step-title">Recibe ganancias</div><p class="step-text">Cada mes recibes tu rendimiento directamente.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-header reveal">
+    <div class="section-tag">Testimonios</div>
+    <h2 class="section-title">Lo que dicen<br>nuestros inversionistas</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">"He invertido tres veces con A&amp;A y siempre he recibido mis ganancias a tiempo. Muy confiable."</p><div class="testimonial-author"><div class="author-avatar">CM</div><div><div class="author-name">Carlos Martínez</div><div class="author-location">Colombia</div></div></div></div>
+    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">"El proceso es súper fácil, todo por WhatsApp. Me asesoraron muy bien y ya voy por mi segundo mes de ganancias."</p><div class="testimonial-author"><div class="author-avatar">LR</div><div><div class="author-name">Laura Rodríguez</div><div class="author-location">Colombia</div></div></div></div>
+    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">"Recomiendo 100%. Los rendimientos son reales y la atención es excelente. Seguiré invirtiendo."</p><div class="testimonial-author"><div class="author-avatar">JP</div><div><div class="author-name">Javier Peña</div><div class="author-location">Colombia</div></div></div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col"><h4>Servicios</h4><ul class="footer-links"><li><a href="#invertir">Simulador de inversión</a></li><li><a href="#beneficios">Planes de inversión</a></li><li><a href="#">Retiros</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul class="footer-links"><li><a href="#">Sobre nosotros</a></li><li><a href="#">Términos y condiciones</a></li><li><a href="#">Política de privacidad</a></li></ul></div>
+      <div class="footer-col"><h4>Contacto</h4><ul class="footer-links"><li><a href="#">WhatsApp</a></li><li><a href="#">Horario: 8am – 5pm</a></li><li><a href="#">Lunes a Viernes</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p class="footer-copy">© 2024 A&amp;A. Todos los derechos reservados.</p><p class="footer-legal">Las tasas mostradas son referenciales. Invertir implica riesgos, consulte los términos antes de realizar cualquier operación.</p></div>
+  </div>
+</footer>
+
+<button class="whatsapp-float" onclick="abrirWhatsAppGeneral()" title="Contáctanos por WhatsApp"><div class="wa-ring"></div><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>
+
+<!-- MODAL AUTH (Google Sign-In) -->
+<div id="authModal" class="auth-modal" style="display:none;">
+  <div class="auth-card">
+    <h2>Accede a A&amp;A</h2>
+    <button id="googleSignInBtn" class="google-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#FFFFFF" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#FFFFFF" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FFFFFF" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#FFFFFF" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Iniciar sesión con Google
+    </button>
+    <button class="close-btn" id="closeModal">Cerrar</button>
+  </div>
+</div>
+
+<script type="importmap">
+  {
+    "imports": {
+      "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+      "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+      "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
+    }
+  }
+</script>
+
+<script type="module">
+  import { initializeApp } from "firebase/app";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+  import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+
+  // 🔥 REEMPLAZA CON TU CONFIGURACIÓN DE FIREBASE 🔥
+ const firebaseConfig = {
+  apiKey: "AIzaSyD47LwjVajUEoa1SFY1zlN0RjgiqL025Wg",
+  authDomain: "inversiones-aa.firebaseapp.com",
+  projectId: "inversiones-aa",
+  storageBucket: "inversiones-aa.firebasestorage.app",
+  messagingSenderId: "661902970671",
+  appId: "1:661902970671:web:3530f7fe1de2e32ff3dbda",
+  measurementId: "G-XCDTJ27K92"  // opcional
+};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const provider = new GoogleAuthProvider();
+
+  // Elementos DOM
+  const modal = document.getElementById('authModal');
+  const userInfoArea = document.getElementById('userInfoArea');
+  const userEmailSpan = document.getElementById('userEmailDisplay');
+  const accountBtn = document.getElementById('accountBtn');
+  const closeModalBtn = document.getElementById('closeModal');
+  const googleBtn = document.getElementById('googleSignInBtn');
+
+  let currentUser = null;
+
+  function showModal() { modal.style.display = 'flex'; }
+  function hideModal() { modal.style.display = 'none'; }
+
+  // Cargar/crear documento de usuario en Firestore
+  async function loadOrCreateUser(uid, email) {
+    const userRef = doc(db, "users", uid);
+    const docSnap = await getDoc(userRef);
+    if (!docSnap.exists()) {
+      await setDoc(userRef, {
+        email: email,
+        balance: 0,
+        investments: [],
+        createdAt: new Date()
+      });
+    }
+  }
+
+  // Guardar solicitud de inversión
+  async function saveInvestmentRequest(invData) {
+    if (!currentUser) throw new Error("No autenticado");
+    const userRef = doc(db, "users", currentUser.uid);
+    await updateDoc(userRef, {
+      investments: arrayUnion({
+        ...invData,
+        date: new Date(),
+        status: "pending"
+      })
+    });
+  }
+
+  // Estado de autenticación
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      currentUser = user;
+      userEmailSpan.textContent = user.email;
+      userInfoArea.style.display = 'flex';
+      loadOrCreateUser(user.uid, user.email);
+      // Habilitar botón de inversión
+      const invBtn = document.getElementById('btn-inv-wa');
+      if (invBtn) invBtn.disabled = false;
+    } else {
+      currentUser = null;
+      userInfoArea.style.display = 'none';
+      const invBtn = document.getElementById('btn-inv-wa');
+      if (invBtn) invBtn.disabled = true;
+    }
+  });
+
+  // Google Sign-In
+  googleBtn.addEventListener('click', async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log("Usuario logueado:", result.user);
+      hideModal();
+    } catch (error) {
+      console.error("Error en Google Sign-In:", error);
+      alert("No se pudo iniciar sesión. Revisa la consola.");
+    }
+  });
+
+  // Logout
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await signOut(auth);
+  });
+
+  // Mostrar modal al hacer clic en "Mi Cuenta"
+  accountBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentUser) {
+      alert(`Sesión iniciada como ${currentUser.email}`);
+    } else {
+      showModal();
+    }
+  });
+
+  closeModalBtn.addEventListener('click', hideModal);
+
+  // Función que se llamará desde el botón de inversión (global)
+  window.solicitarInversion = async function() {
+    if (!invResultadoActual) return;
+    if (!currentUser) {
+      alert("Debes iniciar sesión para solicitar una inversión.");
+      showModal();
+      return;
+    }
+    const { capital, ganancia, total, tasa } = invResultadoActual;
+    const invData = {
+      amount: capital,
+      profit: ganancia,
+      total: total,
+      rate: tasa
+    };
+    await saveInvestmentRequest(invData);
+    const msg = `Hola A&A! 👋 Me interesa invertir con ustedes:\n\n💰 *Capital a invertir:* ${fmt(capital)}\n📈 *Tasa de rendimiento:* ${tasa}% mensual\n🏆 *Ganancia mensual:* ${fmt(Math.round(ganancia))}\n✅ *Total a recibir:* ${fmt(Math.round(total))}\n\n¿Me pueden dar más información sobre cómo invertir? 🙏`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+  };
+
+  window.abrirWhatsAppGeneral = function() {
+    const msg = `Hola A&A! 👋 Me interesa obtener información sobre sus inversiones. ¿Me pueden ayudar?`;
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+  };
+
+  // Exportar fmt para que lo use el código no-module
+  window.fmt = (v) => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
+</script>
+
+<script>
+  // ========== SIMULADOR DE INVERSIÓN (código no-module) ==========
+  const WHATSAPP_NUMBER = '573052131345'; // Cambia por tu número
+  let invTasa = 7.5;
+  let invResultadoActual = null;
+
+  function fmt(v) {
+    return window.fmt ? window.fmt(v) : new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
+  }
+
+  const invMontoInput = document.getElementById('inv-monto');
+  const invMontoSlider = document.getElementById('inv-monto-slider');
+  const invTasaSlider = document.getElementById('inv-tasa-slider');
+
+  window.actualizarTasaDisplay = function(v) {
+    invTasa = parseFloat(v);
+    document.getElementById('inv-tasa-val').textContent = invTasa + '%';
+    document.getElementById('inv-tasa-display').textContent = invTasa + '%';
+    invTasaSlider.style.setProperty('--fill', ((invTasa - 5) / 5 * 100) + '%');
+    calcularInversion();
+  };
+
+  window.setTasa = function(v) {
+    invTasaSlider.value = v;
+    actualizarTasaDisplay(v);
+  };
+
+  invMontoInput.addEventListener('input', () => {
+    const v = Math.min(Math.max(Number(invMontoInput.value), 100000), 10000000);
+    invMontoSlider.value = v;
+    calcularInversion();
+  });
+  invMontoSlider.addEventListener('input', () => {
+    invMontoInput.value = invMontoSlider.value;
+    const pct = ((invMontoSlider.value - 100000) / (10000000 - 100000) * 100);
+    invMontoSlider.style.setProperty('--fill', pct + '%');
+    calcularInversion();
+  });
+  invTasaSlider.addEventListener('input', () => actualizarTasaDisplay(invTasaSlider.value));
+
+  function calcularInversion() {
+    const capital = parseFloat(invMontoInput.value) || 0;
+    if (capital < 100000) return;
+    const ganancia = capital * (invTasa / 100);
+    const total = capital + ganancia;
+    invResultadoActual = { capital, ganancia, total, tasa: invTasa };
+    animarValor('inv-r-capital', capital);
+    animarValor('inv-r-ganancia', ganancia);
+    animarValor('inv-r-total', total);
+    document.getElementById('inv-results').classList.add('visible');
+    const btnInv = document.getElementById('btn-inv-wa');
+    if (btnInv) btnInv.disabled = false;
+  }
+
+  function animarValor(id, final) {
+    const el = document.getElementById(id);
+    const dur = 550, t0 = Date.now();
+    function tick() {
+      const p = Math.min((Date.now()-t0)/dur,1);
+      const e = 1 - Math.pow(1-p,3);
+      el.textContent = fmt(Math.round(final*e));
+      if(p<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);} });
+  },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+    });
+  });
+
+  // Inicializar
+  window.addEventListener('DOMContentLoaded', () => {
+    invMontoInput.value = 500000;
+    invMontoSlider.value = 500000;
+    actualizarTasaDisplay(7.5);
+    calcularInversion();
+  });
+</script>
+</body>
+</html>

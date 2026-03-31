@@ -834,20 +834,23 @@
   //    y window._invResultadoActual (definidos en el script normal)
   // =========================================================
   window.solicitarInversion = async function() {
-    const resultado = window._invResultadoActual;
-    if (!resultado) return;
-
     // Sin sesión → abrir modal y salir
     if (!window._currentUser) { showModal(); return; }
 
-    const { capital, ganancia, total, tasa } = resultado;
+    const resultado = window._invResultadoActual;
+    const f = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
 
-    try {
-      await saveInvestmentRequest(window._currentUser.uid, { amount: capital, profit: ganancia, total, rate: tasa });
-    } catch(e) { console.error("Error guardando inversión:", e); }
-
-    const f   = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
-    const msg = `Hola A&A! 👋 Me interesa invertir:\n\n💰 *Capital:* ${f(capital)}\n📈 *Tasa:* ${tasa}% mensual\n🏆 *Ganancia:* ${f(Math.round(ganancia))}\n✅ *Total:* ${f(Math.round(total))}\n\n¿Me dan más información? 🙏`;
+    let msg;
+    if (resultado) {
+      const { capital, ganancia, total, tasa } = resultado;
+      try {
+        await saveInvestmentRequest(window._currentUser.uid, { amount: capital, profit: ganancia, total, rate: tasa });
+      } catch(e) { console.error("Error guardando inversión:", e); }
+      msg = `Hola A&A! 👋 Me interesa invertir:\n\n💰 *Capital:* ${f(capital)}\n📈 *Tasa:* ${tasa}% mensual\n🏆 *Ganancia:* ${f(Math.round(ganancia))}\n✅ *Total:* ${f(Math.round(total))}\n\n¿Me dan más información? 🙏`;
+    } else {
+      // Sesión activa pero sin simulación: mensaje genérico
+      msg = `Hola A&A! 👋 Soy *${window._currentUser.email}* y me interesa obtener información sobre sus planes de inversión. ¿Me pueden ayudar? 🙏`;
+    }
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 

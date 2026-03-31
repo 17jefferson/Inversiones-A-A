@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A&A — Inversiones seguras</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -50,7 +50,7 @@
       display:flex; align-items:center; justify-content:space-between;
       padding:16px 5%;
       background: rgba(0,0,0,0.7);
-      backdrop-filter:blur(24px);
+      backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
       border-bottom:1px solid var(--border);
       transition:background .4s var(--ease);
     }
@@ -129,175 +129,6 @@
       font-size:.84rem;font-weight:500;color:var(--accent2);
       animation:fadeUp .65s ease .25s both;
     }
-
-    /* TARJETA ANIMADA */
-    .hero-card-wrap{
-      width:100%;
-      display:flex;
-      justify-content:center;
-      margin-top:26px;
-      perspective:1200px;
-      animation:fadeUp .65s ease .3s both;
-    }
-
-    .credit-card-visual{
-      width:min(100%, 370px);
-      aspect-ratio: 1.585 / 1;
-      border-radius:24px;
-      padding:22px;
-      position:relative;
-      overflow:hidden;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,255,255,.12), transparent 22%),
-        linear-gradient(135deg, #171717 0%, #090909 48%, #121212 100%);
-      border:1px solid rgba(229,9,20,.25);
-      box-shadow:0 24px 70px rgba(0,0,0,.65), 0 0 40px rgba(229,9,20,.12);
-      transform-style:preserve-3d;
-      animation:cardFloat 6s ease-in-out infinite, cardPulse 4s ease-in-out infinite;
-    }
-
-    .credit-card-visual::before{
-      content:'';
-      position:absolute;
-      inset:-35%;
-      background:linear-gradient(120deg, transparent 35%, rgba(255,255,255,.12) 50%, transparent 65%);
-      transform:translateX(-60%) rotate(12deg);
-      animation:cardSweep 5.5s ease-in-out infinite;
-      pointer-events:none;
-    }
-
-    .credit-card-visual::after{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(circle at 80% 18%, rgba(229,9,20,.18), transparent 22%),
-        radial-gradient(circle at 18% 82%, rgba(37,211,102,.08), transparent 18%);
-      pointer-events:none;
-    }
-
-    @keyframes cardFloat{
-      0%,100%{ transform: translateY(0) rotateX(0deg) rotateY(0deg); }
-      50%{ transform: translateY(-8px) rotateX(6deg) rotateY(-6deg); }
-    }
-
-    @keyframes cardPulse{
-      0%,100%{ box-shadow:0 24px 70px rgba(0,0,0,.65), 0 0 40px rgba(229,9,20,.12); }
-      50%{ box-shadow:0 28px 80px rgba(0,0,0,.72), 0 0 60px rgba(229,9,20,.2); }
-    }
-
-    @keyframes cardSweep{
-      0%{ transform:translateX(-70%) rotate(12deg); opacity:0; }
-      20%{ opacity:1; }
-      50%{ transform:translateX(70%) rotate(12deg); opacity:.95; }
-      80%{ opacity:0; }
-      100%{ transform:translateX(70%) rotate(12deg); opacity:0; }
-    }
-
-    .card-top{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-      position:relative;
-      z-index:1;
-    }
-
-    .card-chip{
-      width:46px;
-      height:36px;
-      border-radius:10px;
-      position:relative;
-      background:linear-gradient(135deg, #ead08b 0%, #b68a3d 45%, #7e5a1f 100%);
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:inset 0 0 18px rgba(255,255,255,.14);
-      overflow:hidden;
-    }
-
-    .card-chip span{
-      position:absolute;
-      background:rgba(0,0,0,.18);
-    }
-    .card-chip span:nth-child(1){ left:50%; top:0; width:1px; height:100%; }
-    .card-chip span:nth-child(2){ top:50%; left:0; width:100%; height:1px; }
-    .card-chip span:nth-child(3){ left:8px; right:8px; top:8px; height:1px; }
-    .card-chip span:nth-child(4){ left:8px; right:8px; bottom:8px; height:1px; }
-
-    .card-brand{
-      font-family:var(--font-d);
-      font-weight:800;
-      font-size:1.35rem;
-      letter-spacing:.5px;
-      color:#fff;
-      text-shadow:0 0 18px rgba(255,255,255,.12);
-    }
-
-    .card-title{
-      margin-top:22px;
-      font-size:.72rem;
-      letter-spacing:3px;
-      text-transform:uppercase;
-      color:var(--text-muted);
-      position:relative;
-      z-index:1;
-    }
-
-    .card-number{
-      margin-top:10px;
-      font-family:var(--font-d);
-      font-weight:800;
-      font-size:clamp(1.1rem, 3.6vw, 1.8rem);
-      letter-spacing:4px;
-      word-spacing:6px;
-      color:#fff;
-      position:relative;
-      z-index:1;
-    }
-
-    .card-bottom{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:14px;
-      margin-top:26px;
-      position:relative;
-      z-index:1;
-    }
-
-    .card-field{
-      font-size:.72rem;
-      color:var(--text-dim);
-      text-transform:uppercase;
-      letter-spacing:1px;
-    }
-
-    .card-field strong{
-      display:block;
-      margin-top:6px;
-      font-size:.92rem;
-      color:#fff;
-      text-transform:none;
-      letter-spacing:0;
-    }
-
-    .approved-badge{
-      position:absolute;
-      right:18px;
-      bottom:18px;
-      z-index:1;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:.75rem;
-      font-weight:700;
-      color:#8df0b0;
-      background:rgba(37,211,102,.1);
-      border:1px solid rgba(37,211,102,.22);
-      backdrop-filter:blur(8px);
-    }
-
     @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
     /* SIMULADOR */
@@ -374,6 +205,7 @@
     .result-label { font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px; }
     .result-note { font-size:.7rem;color:var(--text-dim);margin-top:4px; }
 
+    /* Login notice */
     .login-notice {
       background:rgba(229,9,20,0.08); border:1px solid rgba(229,9,20,0.25);
       border-radius:12px; padding:14px 18px; margin-bottom:16px;
@@ -387,24 +219,17 @@
       width:100%;padding:22px 30px;
       background:linear-gradient(135deg,#25d366 0%,#1aad54 60%,#128c3e 100%);
       color:#fff;font-family:var(--font-d);font-weight:800;font-size:1.15rem;
-      border-radius:18px;border:none;
+      border-radius:18px;border:none;cursor:pointer;
       display:flex;align-items:center;justify-content:center;gap:14px;
       transition:all .3s var(--spring);position:relative;overflow:hidden;
       box-shadow:0 8px 30px rgba(37,211,102,.35);letter-spacing:-.3px;
     }
-    .btn-invest-wa:not(:disabled) { cursor:pointer; }
-    .btn-invest-wa:disabled {
-      opacity:0.6;
-      filter:grayscale(0.2);
-      cursor:not-allowed;
-      transform:none;
-      box-shadow:none;
-    }
-    .btn-invest-wa:not(:disabled):hover { transform:translateY(-3px) scale(1.01); box-shadow:0 14px 40px rgba(37,211,102,.5); }
+    .btn-invest-wa:hover { transform:translateY(-3px) scale(1.01); box-shadow:0 14px 40px rgba(37,211,102,.5); }
     .btn-invest-wa .wa-icon { width:28px;height:28px;fill:#fff;flex-shrink:0; }
 
     .section-tag-gold { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#E50914;margin-bottom:12px; }
 
+    /* SECCIONES */
     section { position:relative;z-index:1; }
     .section-header { text-align:center;margin-bottom:56px; }
     .section-tag { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px; }
@@ -449,34 +274,15 @@
     .footer-copy { font-size:.82rem;color:var(--text-dim); }
     .footer-legal { font-size:.78rem;color:var(--text-dim);max-width:500px;text-align:right;line-height:1.5; }
 
-    /* BOTÓN FLOTANTE WHATSAPP - SIEMPRE VISIBLE */
     .whatsapp-float {
-      position:fixed;
-      bottom:28px;
-      right:28px;
-      z-index:300;
-      width:64px;
-      height:64px;
-      border-radius:50%;
-      border:none;
+      position:fixed;bottom:28px;right:28px;z-index:300;
+      width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
       background:linear-gradient(135deg,#25d366,#1aad54);
       box-shadow:0 6px 30px rgba(37,211,102,.55);
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition:transform 0.2s, opacity 0.2s;
       animation:fadeInFloat 1s ease 2s both, floatWA 3s ease-in-out 3s infinite;
     }
-    .whatsapp-float.disabled-float {
-      opacity:0.5;
-      filter:grayscale(0.2);
-      /* cursor:not-allowed;  no lo ponemos para que el click igual funcione y muestre login */
-      animation:none;
-      transform:none;
-    }
-    .whatsapp-float:not(.disabled-float):hover { transform:scale(1.08); }
-    .whatsapp-float svg { width:32px; height:32px; fill:#fff; }
+    .whatsapp-float svg { width:32px;height:32px;fill:#fff; }
     @keyframes fadeInFloat { from{opacity:0;transform:scale(.4)} to{opacity:1;transform:scale(1)} }
     @keyframes floatWA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
 
@@ -540,42 +346,6 @@
       .footer-legal{text-align:center}
       nav .nav-links li:not(:last-child){display:none}
       .inv-card{padding:32px 22px 28px}
-      .hero-card-wrap{margin-top:22px}
-      .credit-card-visual{width:min(100%, 340px)}
-      .whatsapp-float { width:56px; height:56px; bottom:20px; right:20px; }
-    }
-
-    @media(max-width:600px){
-      nav{padding:14px 4%}
-      .hero{
-        padding:108px 4% 46px;
-        min-height:auto;
-      }
-      .hero-title{
-        font-size:clamp(2rem, 10vw, 2.6rem);
-      }
-      .hero-subtitle{
-        font-size:.98rem;
-      }
-      .hours-badge{
-        font-size:.78rem;
-        padding:10px 12px;
-      }
-      .credit-card-visual{
-        padding:18px;
-        border-radius:20px;
-      }
-      .card-number{
-        letter-spacing:2px;
-        word-spacing:3px;
-        font-size:1.12rem;
-      }
-      .approved-badge{
-        right:14px;
-        bottom:14px;
-        font-size:.7rem;
-      }
-      .whatsapp-float { width:52px; height:52px; }
     }
   </style>
 </head>
@@ -608,22 +378,6 @@
     <h1 class="hero-title">Inversiones <span class="gradient-text">seguras</span><br>con altos rendimientos</h1>
     <p class="hero-subtitle">Invierte desde $100.000 y obtén hasta un 10% mensual. Sin sorpresas, todo digital.</p>
     <div class="hours-badge">🕗 Atención: Lunes a Viernes 8:00 AM – 5:00 PM · Sábados 8:00 AM – 12:00 PM</div>
-
-    <div class="hero-card-wrap">
-      <div class="credit-card-visual" aria-label="Tarjeta animada de A&A">
-        <div class="card-top">
-          <div class="card-chip" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-          <div class="card-brand">A&amp;A</div>
-        </div>
-        <div class="card-title">Secure investment card</div>
-        <div class="card-number">4821 •••• •••• 7934</div>
-        <div class="card-bottom">
-          <div class="card-field">Titular <strong>Adrian G.</strong></div>
-          <div class="card-field">Válido <strong>08/28</strong></div>
-        </div>
-        <div class="approved-badge">✅ Aprobado $500,000</div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -637,39 +391,139 @@
     </div>
 
     <div class="inv-card reveal">
-      <div class="inv-tasa-bar">📈 Rendimiento mensual: <strong id="inv-tasa-display">7.5%</strong> &nbsp;·&nbsp; Varía entre <strong>5%</strong> y <strong>10%</strong> según el plan</div>
+      <div class="inv-tasa-bar">
+        📈 Rendimiento mensual: <strong id="inv-tasa-display">7.5%</strong> &nbsp;·&nbsp; Varía entre <strong>5%</strong> y <strong>10%</strong> según el plan
+      </div>
+
       <div class="sim-grid">
         <div class="field-group">
           <label class="field-label" style="color:#E50914;">💰 Capital a invertir</label>
-          <div class="field-input-wrapper"><span class="field-prefix" style="color:#E50914;">$</span><input type="number" id="inv-monto" placeholder="100.000" min="100000" max="10000000" step="100000" style="border-color:rgba(229,9,20,0.2);" /></div>
-          <div class="slider-wrap"><input type="range" class="inv-range" id="inv-monto-slider" min="100000" max="10000000" step="100000" value="500000" /><div class="range-labels"><span>$100.000</span><span>$10.000.000</span></div></div>
+          <div class="field-input-wrapper">
+            <span class="field-prefix" style="color:#E50914;">$</span>
+            <input type="number" id="inv-monto" placeholder="100.000" min="100000" max="10000000" step="100000" style="border-color:rgba(229,9,20,0.2);" />
+          </div>
+          <div class="slider-wrap">
+            <input type="range" class="inv-range" id="inv-monto-slider" min="100000" max="10000000" step="100000" value="500000" />
+            <div class="range-labels"><span>$100.000</span><span>$10.000.000</span></div>
+          </div>
         </div>
+
         <div class="field-group">
           <label class="field-label" style="color:#E50914;">📊 Tasa de rendimiento mensual</label>
-          <div class="rate-selector"><div class="rate-track"><input type="range" class="inv-range" id="inv-tasa-slider" min="5" max="10" step="0.5" value="7.5" oninput="actualizarTasaDisplay(this.value)" /></div><span class="rate-display" id="inv-tasa-val">7.5%</span></div>
+          <div class="rate-selector">
+            <div class="rate-track">
+              <input type="range" class="inv-range" id="inv-tasa-slider" min="5" max="10" step="0.5" value="7.5" oninput="actualizarTasaDisplay(this.value)" />
+            </div>
+            <span class="rate-display" id="inv-tasa-val">7.5%</span>
+          </div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px;">
-            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(5)"><div style="font-weight:800;color:#E50914;">5%</div><div style="font-size:.68rem;">Plan Básico</div></div>
-            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(7.5)"><div style="font-weight:800;color:#E50914;">7.5%</div><div style="font-size:.68rem;">Plan Plus</div></div>
-            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(10)"><div style="font-weight:800;color:#E50914;">10%</div><div style="font-size:.68rem;">Plan Premium</div></div>
+            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(5)">
+              <div style="font-weight:800;color:#E50914;">5%</div><div style="font-size:.68rem;">Plan Básico</div>
+            </div>
+            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(7.5)">
+              <div style="font-weight:800;color:#E50914;">7.5%</div><div style="font-size:.68rem;">Plan Plus</div>
+            </div>
+            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(10)">
+              <div style="font-weight:800;color:#E50914;">10%</div><div style="font-size:.68rem;">Plan Premium</div>
+            </div>
           </div>
         </div>
       </div>
+
       <div id="inv-results" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0;">
-        <div class="inv-result-box"><div class="result-label">💵 Capital invertido</div><div class="result-value" id="inv-r-capital">$0</div><div class="result-note">Lo que pones</div></div>
-        <div class="inv-result-box"><div class="result-label">📈 Ganancia mensual</div><div class="result-value" id="inv-r-ganancia">$0</div><div class="result-note">Rendimiento del período</div></div>
-        <div class="inv-result-box inv-highlight" style="grid-column:span 2"><div class="result-label">🏆 Total a recibir</div><div class="result-value" id="inv-r-total">$0</div><div class="result-note">Capital + rendimiento al finalizar el mes</div></div>
+        <div class="inv-result-box">
+          <div class="result-label">💵 Capital invertido</div>
+          <div class="result-value" id="inv-r-capital">$0</div>
+          <div class="result-note">Lo que pones</div>
+        </div>
+        <div class="inv-result-box">
+          <div class="result-label">📈 Ganancia mensual</div>
+          <div class="result-value" id="inv-r-ganancia">$0</div>
+          <div class="result-note">Rendimiento del período</div>
+        </div>
+        <div class="inv-result-box inv-highlight" style="grid-column:span 2">
+          <div class="result-label">🏆 Total a recibir</div>
+          <div class="result-value" id="inv-r-total">$0</div>
+          <div class="result-note">Capital + rendimiento al finalizar el mes</div>
+        </div>
       </div>
-      <div id="loginNotice" class="login-notice" onclick="window.mostrarModal && window.mostrarModal()">🔐 Inicia sesión para enviar tu solicitud de inversión por WhatsApp</div>
-      <button class="btn-invest-wa" id="btn-inv-wa" disabled onclick="solicitarInversion()"><svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><div><div style="font-size:1.05rem;">Quiero invertir por WhatsApp</div><div style="font-size:.75rem;opacity:.85;font-weight:500;">Habla con un asesor · Sin costo</div></div></button>
+
+      <!-- Aviso login (solo si no hay sesión) -->
+      <div id="loginNotice" class="login-notice" onclick="window.mostrarModal && window.mostrarModal()">
+        🔐 Inicia sesión para enviar tu solicitud de inversión por WhatsApp
+      </div>
+
+      <button class="btn-invest-wa" id="btn-inv-wa" onclick="solicitarInversion()">
+        <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <div>
+          <div style="font-size:1.05rem;">Quiero invertir por WhatsApp</div>
+          <div style="font-size:.75rem;opacity:.85;font-weight:500;">Habla con un asesor · Sin costo</div>
+        </div>
+      </button>
     </div>
   </div>
 </section>
 
-<!-- BENEFICIOS, HOW, TESTIMONIALS, FOOTER (se omiten por brevedad pero deben ir aquí) -->
-<!-- ... (copiar el resto de secciones desde tu código original, no las cambio) ... -->
+<!-- BENEFICIOS -->
+<section class="benefits" id="beneficios">
+  <div class="section-header reveal">
+    <div class="section-tag">¿Por qué invertir con nosotros?</div>
+    <h2 class="section-title">Todo lo que necesitas<br>en un solo lugar</h2>
+    <p class="section-sub">Diseñamos cada proceso pensando en tu comodidad y seguridad.</p>
+  </div>
+  <div class="benefits-grid">
+    <div class="benefit-card reveal"><div class="benefit-icon">⚡</div><h3 class="benefit-title">Rendimientos atractivos</h3><p class="benefit-text">Hasta un 10% mensual, superando a cualquier fondo tradicional.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">🔐</div><h3 class="benefit-title">100% seguro</h3><p class="benefit-text">Tu inversión está respaldada por contratos claros y transparencia total.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">📱</div><h3 class="benefit-title">Gestión por WhatsApp</h3><p class="benefit-text">Consulta tu saldo y rendimientos directamente desde tu celular.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">💸</div><h3 class="benefit-title">Retiros rápidos</h3><p class="benefit-text">Solicita tu dinero cuando quieras, lo recibes en tu cuenta en 24h hábiles.</p></div>
+    <div class="benefit-card reveal"><div class="benefit-icon">🤝</div><h3 class="benefit-title">Atención personalizada</h3><p class="benefit-text">Un asesor real disponible en horario de atención para guiarte.</p></div>
+  </div>
+</section>
 
-<!-- BOTÓN FLOTANTE WHATSAPP - SIEMPRE VISIBLE -->
-<button class="whatsapp-float" id="whatsappFloatBtn" onclick="abrirWhatsAppGeneral()" title="Contáctanos por WhatsApp">
+<!-- CÓMO FUNCIONA -->
+<section class="how" id="como-funciona">
+  <div class="section-header reveal">
+    <div class="section-tag">Proceso simple</div>
+    <h2 class="section-title">Invierte en 4 pasos</h2>
+    <p class="section-sub">Desde tu celular, en minutos, sin complicaciones.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step"><div class="step-dot">1</div><div class="step-title">Simula</div><p class="step-text">Elige el monto y la tasa que más te convenga.</p></div>
+    <div class="step"><div class="step-dot">2</div><div class="step-title">Regístrate</div><p class="step-text">Crea tu cuenta con Google o email.</p></div>
+    <div class="step"><div class="step-dot">3</div><div class="step-title">Confirma</div><p class="step-text">Te contactamos por WhatsApp para formalizar la inversión.</p></div>
+    <div class="step"><div class="step-dot">4</div><div class="step-title">Recibe ganancias</div><p class="step-text">Cada mes recibes tu rendimiento directamente.</p></div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="testimonials">
+  <div class="section-header reveal">
+    <div class="section-tag">Testimonios</div>
+    <h2 class="section-title">Lo que dicen<br>nuestros inversionistas</h2>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">"He invertido tres veces con A&amp;A y siempre he recibido mis ganancias a tiempo. Muy confiable."</p><div class="testimonial-author"><div class="author-avatar">CM</div><div><div class="author-name">Carlos Martínez</div><div class="author-location">Colombia</div></div></div></div>
+    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">"El proceso es súper fácil, todo por WhatsApp. Me asesoraron muy bien y ya voy por mi segundo mes de ganancias."</p><div class="testimonial-author"><div class="author-avatar">LR</div><div><div class="author-name">Laura Rodríguez</div><div class="author-location">Colombia</div></div></div></div>
+    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">"Recomiendo 100%. Los rendimientos son reales y la atención es excelente. Seguiré invirtiendo."</p><div class="testimonial-author"><div class="author-avatar">JP</div><div><div class="author-name">Javier Peña</div><div class="author-location">Colombia</div></div></div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col"><h4>Servicios</h4><ul class="footer-links"><li><a href="#invertir">Simulador de inversión</a></li><li><a href="#beneficios">Planes de inversión</a></li><li><a href="#">Retiros</a></li></ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul class="footer-links"><li><a href="#">Sobre nosotros</a></li><li><a href="#">Términos y condiciones</a></li><li><a href="#">Política de privacidad</a></li></ul></div>
+      <div class="footer-col"><h4>Contacto</h4><ul class="footer-links"><li><a href="#">WhatsApp</a></li><li><a href="#">Horario: 8am – 5pm</a></li><li><a href="#">Lunes a Viernes</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 A&amp;A. Todos los derechos reservados.</p>
+      <p class="footer-legal">Las tasas mostradas son referenciales. Invertir implica riesgos, consulte los términos antes de realizar cualquier operación.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="whatsapp-float" onclick="abrirWhatsAppGeneral()" title="Contáctanos por WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </button>
 
@@ -678,8 +532,19 @@
   <div class="auth-card">
     <div class="auth-logo">A&amp;A</div>
     <div class="auth-sub" id="authSubTitle">Accede a tu cuenta para invertir</div>
-    <button id="googleSignInBtn" class="google-btn"><svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Continuar con Google</button>
+
+    <button id="googleSignInBtn" class="google-btn">
+      <svg width="20" height="20" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      Continuar con Google
+    </button>
+
     <div class="divider">o con email</div>
+
     <div class="email-form">
       <input type="email" id="authEmail" placeholder="tu@email.com" autocomplete="email" />
       <input type="password" id="authPassword" placeholder="Contraseña (mín. 6 caracteres)" autocomplete="current-password" />
@@ -687,206 +552,298 @@
       <button class="toggle-mode" onclick="toggleAuthMode()">¿No tienes cuenta? Regístrate aquí</button>
       <div id="authMsg" class="auth-msg" style="display:none;"></div>
     </div>
+
     <button class="close-btn" id="closeModal">Cancelar</button>
   </div>
 </div>
 
-<!-- Importmap y Firebase (igual que antes) -->
+<!-- ===== FIREBASE importmap ===== -->
 <script type="importmap">
 {
   "imports": {
-    "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
-    "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+    "firebase/app":       "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+    "firebase/auth":      "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
     "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
   }
 }
 </script>
 
+<!-- ===== FIREBASE MODULE ===== -->
 <script type="module">
   import { initializeApp } from "firebase/app";
-  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-  import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+  import {
+    getAuth, signInWithPopup, GoogleAuthProvider,
+    signOut, onAuthStateChanged,
+    createUserWithEmailAndPassword, signInWithEmailAndPassword
+  } from "firebase/auth";
+  import {
+    getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion
+  } from "firebase/firestore";
 
+  // 🔥 TU CONFIG DE FIREBASE
   const firebaseConfig = {
-    apiKey: "AIzaSyD47LwjVajUEoa1SFY1zlN0RjgiqL025Wg",
-    authDomain: "inversiones-aa.firebaseapp.com",
-    projectId: "inversiones-aa",
-    storageBucket: "inversiones-aa.firebasestorage.app",
+    apiKey:            "AIzaSyD47LwjVajUEoa1SFY1zlN0RjgiqL025Wg",
+    authDomain:        "inversiones-aa.firebaseapp.com",
+    projectId:         "inversiones-aa",
+    storageBucket:     "inversiones-aa.firebasestorage.app",
     messagingSenderId: "661902970671",
-    appId: "1:661902970671:web:3530f7fe1de2e32ff3dbda"
+    appId:             "1:661902970671:web:3530f7fe1de2e32ff3dbda"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+  const app      = initializeApp(firebaseConfig);
+  const auth     = getAuth(app);
+  const db       = getFirestore(app);
   const provider = new GoogleAuthProvider();
 
-  // Elementos DOM
-  const modal = document.getElementById('authModal');
-  const userInfoArea = document.getElementById('userInfoArea');
+  // --- DOM ---
+  const modal         = document.getElementById('authModal');
+  const userInfoArea  = document.getElementById('userInfoArea');
   const userEmailSpan = document.getElementById('userEmailDisplay');
-  const accountBtn = document.getElementById('accountBtn');
+  const accountBtn    = document.getElementById('accountBtn');
   const closeModalBtn = document.getElementById('closeModal');
-  const googleBtn = document.getElementById('googleSignInBtn');
-  const loginNotice = document.getElementById('loginNotice');
-  const investBtn = document.getElementById('btn-inv-wa');
-  const waFloatBtn = document.getElementById('whatsappFloatBtn');
+  const googleBtn     = document.getElementById('googleSignInBtn');
+  const loginNotice   = document.getElementById('loginNotice');
 
-  const showModal = () => modal.style.display = 'flex';
-  const hideModal = () => { modal.style.display = 'none'; clearAuthMsg(); };
+  // --- Helpers UI ---
+  const showModal  = () => { modal.style.display = 'flex'; };
+  const hideModal  = () => { modal.style.display = 'none'; clearAuthMsg(); };
+
+  // ✅ Exponer globalmente para que el HTML inline lo pueda llamar
   window.mostrarModal = showModal;
 
   function showAuthMsg(msg, type = 'error') {
     const el = document.getElementById('authMsg');
     el.textContent = msg; el.className = 'auth-msg ' + type; el.style.display = 'block';
   }
-  function clearAuthMsg() { const el = document.getElementById('authMsg'); el.style.display = 'none'; }
+  function clearAuthMsg() {
+    const el = document.getElementById('authMsg');
+    el.style.display = 'none';
+  }
 
+  // --- Firestore: crear/cargar usuario ---
   async function loadOrCreateUser(uid, email) {
     try {
-      const ref = doc(db, "users", uid);
+      const ref  = doc(db, "users", uid);
       const snap = await getDoc(ref);
-      if (!snap.exists()) await setDoc(ref, { email, balance: 0, investments: [], createdAt: new Date() });
+      if (!snap.exists()) {
+        await setDoc(ref, { email, balance: 0, investments: [], createdAt: new Date() });
+      }
     } catch(e) { console.error("Firestore:", e); }
   }
 
+  // --- Guardar inversión ---
   async function saveInvestmentRequest(uid, data) {
     const ref = doc(db, "users", uid);
-    await updateDoc(ref, { investments: arrayUnion({ ...data, date: new Date().toISOString(), status: "pending" }) });
+    await updateDoc(ref, {
+      investments: arrayUnion({ ...data, date: new Date().toISOString(), status: "pending" })
+    });
   }
 
+  // --- Auth state ---
   onAuthStateChanged(auth, (user) => {
     if (user) {
       window._currentUser = user;
       userEmailSpan.textContent = user.email;
       userInfoArea.style.display = 'flex';
-      accountBtn.style.display = 'none';
-      loginNotice.style.display = 'none';
-      investBtn.disabled = false;
-      waFloatBtn.classList.remove('disabled-float');
+      accountBtn.style.display   = 'none';
+      loginNotice.style.display  = 'none';
       loadOrCreateUser(user.uid, user.email);
     } else {
-      window._currentUser = null;
+      window._currentUser        = null;
       userInfoArea.style.display = 'none';
-      accountBtn.style.display = '';
-      investBtn.disabled = true;
-      waFloatBtn.classList.add('disabled-float');
+      accountBtn.style.display   = '';
+      // Mostrar aviso solo si ya hay un cálculo pendiente
       if (window._invResultadoActual) loginNotice.style.display = 'flex';
     }
   });
 
-  googleBtn.onclick = async () => { try { await signInWithPopup(auth, provider); hideModal(); } catch(e) { showAuthMsg("Error con Google"); } };
-  closeModalBtn.onclick = hideModal;
-  accountBtn.onclick = (e) => { e.preventDefault(); window._currentUser ? alert(`Sesión: ${window._currentUser.email}`) : showModal(); };
-  document.getElementById('logoutBtn').onclick = () => signOut(auth);
+  // --- Google Sign-In ---
+  googleBtn.addEventListener('click', async () => {
+    try {
+      await signInWithPopup(auth, provider);
+      hideModal();
+    } catch (e) {
+      console.error(e);
+      showAuthMsg("No se pudo iniciar sesión con Google. Intenta de nuevo.");
+    }
+  });
 
+  // --- Email Auth ---
   let isRegisterMode = false;
+
   window.toggleAuthMode = () => {
     isRegisterMode = !isRegisterMode;
     document.getElementById('emailActionBtn').textContent = isRegisterMode ? 'Crear cuenta' : 'Iniciar sesión';
-    document.querySelector('.toggle-mode').textContent = isRegisterMode ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí';
-    document.getElementById('authSubTitle').textContent = isRegisterMode ? 'Crea tu cuenta gratis' : 'Accede a tu cuenta para invertir';
+    document.querySelector('.toggle-mode').textContent    = isRegisterMode ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí';
+    document.getElementById('authSubTitle').textContent  = isRegisterMode ? 'Crea tu cuenta gratis' : 'Accede a tu cuenta para invertir';
     clearAuthMsg();
   };
+
   window.handleEmailAuth = async () => {
-    const email = document.getElementById('authEmail').value.trim();
+    const email    = document.getElementById('authEmail').value.trim();
     const password = document.getElementById('authPassword').value;
-    if (!email || !password) { showAuthMsg("Completa todos los campos."); return; }
-    if (password.length < 6) { showAuthMsg("Mínimo 6 caracteres."); return; }
+    if (!email || !password)   { showAuthMsg("Completa todos los campos."); return; }
+    if (password.length < 6)   { showAuthMsg("La contraseña debe tener al menos 6 caracteres."); return; }
+
     const btn = document.getElementById('emailActionBtn');
     btn.disabled = true; btn.textContent = 'Procesando...';
     clearAuthMsg();
-    try {
-      if (isRegisterMode) await createUserWithEmailAndPassword(auth, email, password);
-      else await signInWithEmailAndPassword(auth, email, password);
-      hideModal();
-    } catch (error) {
-      const msgs = { 'auth/user-not-found': 'Usuario no existe.', 'auth/wrong-password': 'Contraseña incorrecta.', 'auth/email-already-in-use': 'Email ya registrado.', 'auth/invalid-email': 'Email inválido.' };
-      showAuthMsg(msgs[error.code] || 'Error, intenta de nuevo.');
-    } finally { btn.disabled = false; btn.textContent = isRegisterMode ? 'Crear cuenta' : 'Iniciar sesión'; }
-  };
-  document.getElementById('authEmail')?.addEventListener('keydown', e => e.key === 'Enter' && window.handleEmailAuth());
-  document.getElementById('authPassword')?.addEventListener('keydown', e => e.key === 'Enter' && window.handleEmailAuth());
 
+    try {
+      if (isRegisterMode) {
+        await createUserWithEmailAndPassword(auth, email, password);
+        showAuthMsg("¡Cuenta creada! Bienvenido/a 🎉", 'success');
+        setTimeout(hideModal, 1200);
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+        hideModal();
+      }
+    } catch (error) {
+      const msgs = {
+        'auth/user-not-found':       'No existe una cuenta con ese email.',
+        'auth/wrong-password':       'Contraseña incorrecta.',
+        'auth/email-already-in-use': 'Ese email ya está registrado. Inicia sesión.',
+        'auth/invalid-email':        'El email no tiene un formato válido.',
+        'auth/invalid-credential':   'Email o contraseña incorrectos.',
+      };
+      showAuthMsg(msgs[error.code] || 'Ocurrió un error. Intenta de nuevo.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = isRegisterMode ? 'Crear cuenta' : 'Iniciar sesión';
+    }
+  };
+
+  ['authEmail','authPassword'].forEach(id =>
+    document.getElementById(id)?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') window.handleEmailAuth();
+    })
+  );
+
+  // --- Logout ---
+  document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+  // --- Botón "Mi Cuenta" ---
+  accountBtn.addEventListener('click', e => {
+    e.preventDefault();
+    window._currentUser ? alert(`Sesión activa: ${window._currentUser.email}`) : showModal();
+  });
+
+  closeModalBtn.addEventListener('click', hideModal);
+
+  // =========================================================
+  // ✅ FIX PRINCIPAL: solicitarInversion usa window._currentUser
+  //    y window._invResultadoActual (definidos en el script normal)
+  // =========================================================
   window.solicitarInversion = async function() {
     const resultado = window._invResultadoActual;
     if (!resultado) return;
+
+    // Sin sesión → abrir modal y salir
     if (!window._currentUser) { showModal(); return; }
+
     const { capital, ganancia, total, tasa } = resultado;
-    await saveInvestmentRequest(window._currentUser.uid, { amount: capital, profit: ganancia, total, rate: tasa });
-    const f = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
-    const msg = `Hola A&A! 👋 Me interesa invertir:\n💰 Capital: ${f(capital)}\n📈 Tasa: ${tasa}% mensual\n🏆 Ganancia: ${f(ganancia)}\n✅ Total: ${f(total)}\n\n¿Me dan más información? 🙏`;
+
+    try {
+      await saveInvestmentRequest(window._currentUser.uid, { amount: capital, profit: ganancia, total, rate: tasa });
+    } catch(e) { console.error("Error guardando inversión:", e); }
+
+    const f   = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
+    const msg = `Hola A&A! 👋 Me interesa invertir:\n\n💰 *Capital:* ${f(capital)}\n📈 *Tasa:* ${tasa}% mensual\n🏆 *Ganancia:* ${f(Math.round(ganancia))}\n✅ *Total:* ${f(Math.round(total))}\n\n¿Me dan más información? 🙏`;
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
+
+  // ✅ FIX: abrirWhatsAppGeneral usa window._WHATSAPP_NUMBER
   window.abrirWhatsAppGeneral = function() {
-    if (!window._currentUser) {
-      showModal();
-      return;
-    }
-    const msg = "Hola A&A! 👋 Me interesa obtener información sobre sus inversiones. ¿Me pueden ayudar?";
+    const msg = `Hola A&A! 👋 Me interesa obtener información sobre sus inversiones. ¿Me pueden ayudar?`;
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
-  window._fmt = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
+
+  // Formateo accesible globalmente
+  window._fmt = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
 </script>
 
-<!-- Script del simulador -->
+<!-- ===== SIMULADOR (script normal) ===== -->
 <script>
-  window._WHATSAPP_NUMBER = '573052131345';  // CAMBIA AQUÍ TU NÚMERO REAL
-  window._currentUser = null;
+  // ✅ Todas las vars compartidas en window._ para que el módulo las lea
+  window._WHATSAPP_NUMBER    = '573052131345'; // 👈 Cambia por tu número
+  window._currentUser        = null;           // Firebase lo actualiza
   window._invResultadoActual = null;
 
   let invTasa = 7.5;
-  function fmt(v) { return (window._fmt || (n => '$' + n.toLocaleString('es-CO')))(v); }
 
-  const invMontoInput = document.getElementById('inv-monto');
+  function fmt(v) {
+    return (window._fmt || (n => '$' + Math.round(n).toLocaleString('es-CO')))(v);
+  }
+
+  const invMontoInput  = document.getElementById('inv-monto');
   const invMontoSlider = document.getElementById('inv-monto-slider');
-  const invTasaSlider = document.getElementById('inv-tasa-slider');
-  const loginNotice = document.getElementById('loginNotice');
+  const invTasaSlider  = document.getElementById('inv-tasa-slider');
+  const loginNotice    = document.getElementById('loginNotice');
 
   window.actualizarTasaDisplay = function(v) {
     invTasa = parseFloat(v);
-    document.getElementById('inv-tasa-val').textContent = invTasa + '%';
+    document.getElementById('inv-tasa-val').textContent     = invTasa + '%';
     document.getElementById('inv-tasa-display').textContent = invTasa + '%';
     invTasaSlider.style.setProperty('--fill', ((invTasa - 5) / 5 * 100) + '%');
     calcularInversion();
   };
-  window.setTasa = function(v) { invTasaSlider.value = v; actualizarTasaDisplay(v); };
+
+  window.setTasa = function(v) {
+    invTasaSlider.value = v;
+    actualizarTasaDisplay(v);
+  };
 
   invMontoInput.addEventListener('input', () => {
-    let v = Math.min(Math.max(Number(invMontoInput.value), 100000), 10000000);
+    const v = Math.min(Math.max(Number(invMontoInput.value), 100000), 10000000);
     invMontoSlider.value = v;
     calcularInversion();
   });
+
   invMontoSlider.addEventListener('input', () => {
     invMontoInput.value = invMontoSlider.value;
+    invMontoSlider.style.setProperty('--fill', ((invMontoSlider.value - 100000) / (10000000 - 100000) * 100) + '%');
     calcularInversion();
   });
+
   invTasaSlider.addEventListener('input', () => actualizarTasaDisplay(invTasaSlider.value));
 
   function calcularInversion() {
     const capital = parseFloat(invMontoInput.value) || 0;
     if (capital < 100000) return;
+
     const ganancia = capital * (invTasa / 100);
-    const total = capital + ganancia;
+    const total    = capital + ganancia;
+
+    // ✅ Guardar en window para que el módulo Firebase lo lea
     window._invResultadoActual = { capital, ganancia, total, tasa: invTasa };
-    animarValor('inv-r-capital', capital);
+
+    animarValor('inv-r-capital',  capital);
     animarValor('inv-r-ganancia', ganancia);
-    animarValor('inv-r-total', total);
+    animarValor('inv-r-total',    total);
+
+    // Mostrar aviso si no hay sesión activa
     if (!window._currentUser) loginNotice.style.display = 'flex';
-    else loginNotice.style.display = 'none';
   }
 
   function animarValor(id, final) {
     const el = document.getElementById(id);
     const dur = 550, t0 = Date.now();
     (function tick() {
-      const p = Math.min((Date.now() - t0) / dur, 1);
-      el.textContent = fmt(Math.round(final * (1 - Math.pow(1 - p, 3))));
+      const p = Math.min((Date.now()-t0)/dur, 1);
+      el.textContent = fmt(Math.round(final * (1-Math.pow(1-p,3))));
       if (p < 1) requestAnimationFrame(tick);
     })();
   }
 
   // Scroll reveal
+  new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+  }, { threshold:.1, rootMargin:'0px 0px -50px 0px' })
+  .observe(...[...document.querySelectorAll('.reveal')].map(el => (obs => { obs.observe(el); return el; })(
+    new IntersectionObserver((entries, o) => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); o.unobserve(e.target); } }), { threshold:.1, rootMargin:'0px 0px -50px 0px' })
+  )));
+
+  // Reinicializar observer correctamente
   (() => {
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } });
@@ -894,11 +851,22 @@
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   })();
 
-  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40));
-  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const t = document.querySelector(a.getAttribute('href')); if(t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); } }));
+  // Navbar scroll
+  window.addEventListener('scroll', () =>
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40)
+  );
 
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a =>
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    })
+  );
+
+  // Init
   window.addEventListener('DOMContentLoaded', () => {
-    invMontoInput.value = 500000;
+    invMontoInput.value  = 500000;
     invMontoSlider.value = 500000;
     actualizarTasaDisplay(7.5);
     calcularInversion();

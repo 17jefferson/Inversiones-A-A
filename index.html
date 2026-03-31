@@ -629,8 +629,8 @@
     <p class="hero-subtitle">Invierte desde $100.000 y obtén hasta un 10% mensual. Sin sorpresas, todo digital.</p>
     <div class="hours-badge">🕗 Atención: Lunes a Viernes 8:00 AM – 5:00 PM · Sábados 8:00 AM – 12:00 PM</div>
 
-    <!-- Tarjeta de crédito (visible solo con sesión activa) -->
-    <div class="hero-card-wrap" id="heroCard" style="display:none;">
+    <!-- Tarjeta de crédito -->
+    <div class="hero-card-wrap" id="heroCard">
       <div class="credit-card">
         <div class="card-shimmer"></div>
         <div class="card-top">
@@ -949,12 +949,9 @@
       loginNotice.style.display  = 'none';
       loadOrCreateUser(user.uid, user.email);
 
-      // Mostrar tarjeta y actualizar titular
-      const heroCard = document.getElementById('heroCard');
-      if (heroCard) heroCard.style.display = 'block';
+      // Actualizar titular en la tarjeta
       const nameEl = document.getElementById('cardHolderName');
       if (nameEl) {
-        // Extraer nombre del email (antes del @)
         const namePart = user.displayName || user.email.split('@')[0];
         nameEl.textContent = namePart.charAt(0).toUpperCase() + namePart.slice(1, 12);
       }
@@ -962,12 +959,7 @@
       window._currentUser        = null;
       userInfoArea.style.display = 'none';
       accountBtn.style.display   = '';
-      // Mostrar aviso solo si ya hay un cálculo pendiente
       if (window._invResultadoActual) loginNotice.style.display = 'flex';
-
-      // Ocultar tarjeta
-      const heroCard = document.getElementById('heroCard');
-      if (heroCard) heroCard.style.display = 'none';
     }
   });
 

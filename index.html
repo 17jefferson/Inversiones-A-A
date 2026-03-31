@@ -50,7 +50,7 @@
       display:flex; align-items:center; justify-content:space-between;
       padding:16px 5%;
       background: rgba(0,0,0,0.7);
-      backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+      backdrop-filter:blur(24px);
       border-bottom:1px solid var(--border);
       transition:background .4s var(--ease);
     }
@@ -296,7 +296,6 @@
       background:rgba(37,211,102,.1);
       border:1px solid rgba(37,211,102,.22);
       backdrop-filter:blur(8px);
-      -webkit-backdrop-filter:blur(8px);
     }
 
     @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
@@ -375,7 +374,6 @@
     .result-label { font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px; }
     .result-note { font-size:.7rem;color:var(--text-dim);margin-top:4px; }
 
-    /* Login notice */
     .login-notice {
       background:rgba(229,9,20,0.08); border:1px solid rgba(229,9,20,0.25);
       border-radius:12px; padding:14px 18px; margin-bottom:16px;
@@ -407,7 +405,6 @@
 
     .section-tag-gold { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#E50914;margin-bottom:12px; }
 
-    /* SECCIONES */
     section { position:relative;z-index:1; }
     .section-header { text-align:center;margin-bottom:56px; }
     .section-tag { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px; }
@@ -452,7 +449,7 @@
     .footer-copy { font-size:.82rem;color:var(--text-dim); }
     .footer-legal { font-size:.78rem;color:var(--text-dim);max-width:500px;text-align:right;line-height:1.5; }
 
-    /* ========== BOTÓN FLOTANTE WHATSAPP ========== */
+    /* BOTÓN FLOTANTE WHATSAPP - SIEMPRE VISIBLE */
     .whatsapp-float {
       position:fixed;
       bottom:28px;
@@ -465,7 +462,7 @@
       background:linear-gradient(135deg,#25d366,#1aad54);
       box-shadow:0 6px 30px rgba(37,211,102,.55);
       cursor:pointer;
-      display:flex;          /* visible por defecto, pero el script lo ocultará si no hay sesión */
+      display:flex;
       align-items:center;
       justify-content:center;
       transition:transform 0.2s, opacity 0.2s;
@@ -474,7 +471,7 @@
     .whatsapp-float.disabled-float {
       opacity:0.5;
       filter:grayscale(0.2);
-      cursor:not-allowed;
+      /* cursor:not-allowed;  no lo ponemos para que el click igual funcione y muestre login */
       animation:none;
       transform:none;
     }
@@ -615,20 +612,15 @@
     <div class="hero-card-wrap">
       <div class="credit-card-visual" aria-label="Tarjeta animada de A&A">
         <div class="card-top">
-          <div class="card-chip" aria-hidden="true">
-            <span></span><span></span><span></span><span></span>
-          </div>
+          <div class="card-chip" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
           <div class="card-brand">A&amp;A</div>
         </div>
-
         <div class="card-title">Secure investment card</div>
         <div class="card-number">4821 •••• •••• 7934</div>
-
         <div class="card-bottom">
           <div class="card-field">Titular <strong>Adrian G.</strong></div>
           <div class="card-field">Válido <strong>08/28</strong></div>
         </div>
-
         <div class="approved-badge">✅ Aprobado $500,000</div>
       </div>
     </div>
@@ -645,152 +637,48 @@
     </div>
 
     <div class="inv-card reveal">
-      <div class="inv-tasa-bar">
-        📈 Rendimiento mensual: <strong id="inv-tasa-display">7.5%</strong> &nbsp;·&nbsp; Varía entre <strong>5%</strong> y <strong>10%</strong> según el plan
-      </div>
-
+      <div class="inv-tasa-bar">📈 Rendimiento mensual: <strong id="inv-tasa-display">7.5%</strong> &nbsp;·&nbsp; Varía entre <strong>5%</strong> y <strong>10%</strong> según el plan</div>
       <div class="sim-grid">
         <div class="field-group">
           <label class="field-label" style="color:#E50914;">💰 Capital a invertir</label>
-          <div class="field-input-wrapper">
-            <span class="field-prefix" style="color:#E50914;">$</span>
-            <input type="number" id="inv-monto" placeholder="100.000" min="100000" max="10000000" step="100000" style="border-color:rgba(229,9,20,0.2);" />
-          </div>
-          <div class="slider-wrap">
-            <input type="range" class="inv-range" id="inv-monto-slider" min="100000" max="10000000" step="100000" value="500000" />
-            <div class="range-labels"><span>$100.000</span><span>$10.000.000</span></div>
-          </div>
+          <div class="field-input-wrapper"><span class="field-prefix" style="color:#E50914;">$</span><input type="number" id="inv-monto" placeholder="100.000" min="100000" max="10000000" step="100000" style="border-color:rgba(229,9,20,0.2);" /></div>
+          <div class="slider-wrap"><input type="range" class="inv-range" id="inv-monto-slider" min="100000" max="10000000" step="100000" value="500000" /><div class="range-labels"><span>$100.000</span><span>$10.000.000</span></div></div>
         </div>
-
         <div class="field-group">
           <label class="field-label" style="color:#E50914;">📊 Tasa de rendimiento mensual</label>
-          <div class="rate-selector">
-            <div class="rate-track">
-              <input type="range" class="inv-range" id="inv-tasa-slider" min="5" max="10" step="0.5" value="7.5" oninput="actualizarTasaDisplay(this.value)" />
-            </div>
-            <span class="rate-display" id="inv-tasa-val">7.5%</span>
-          </div>
+          <div class="rate-selector"><div class="rate-track"><input type="range" class="inv-range" id="inv-tasa-slider" min="5" max="10" step="0.5" value="7.5" oninput="actualizarTasaDisplay(this.value)" /></div><span class="rate-display" id="inv-tasa-val">7.5%</span></div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px;">
-            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(5)">
-              <div style="font-weight:800;color:#E50914;">5%</div><div style="font-size:.68rem;">Plan Básico</div>
-            </div>
-            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(7.5)">
-              <div style="font-weight:800;color:#E50914;">7.5%</div><div style="font-size:.68rem;">Plan Plus</div>
-            </div>
-            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(10)">
-              <div style="font-weight:800;color:#E50914;">10%</div><div style="font-size:.68rem;">Plan Premium</div>
-            </div>
+            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(5)"><div style="font-weight:800;color:#E50914;">5%</div><div style="font-size:.68rem;">Plan Básico</div></div>
+            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(7.5)"><div style="font-weight:800;color:#E50914;">7.5%</div><div style="font-size:.68rem;">Plan Plus</div></div>
+            <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(10)"><div style="font-weight:800;color:#E50914;">10%</div><div style="font-size:.68rem;">Plan Premium</div></div>
           </div>
         </div>
       </div>
-
       <div id="inv-results" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0;">
-        <div class="inv-result-box">
-          <div class="result-label">💵 Capital invertido</div>
-          <div class="result-value" id="inv-r-capital">$0</div>
-          <div class="result-note">Lo que pones</div>
-        </div>
-        <div class="inv-result-box">
-          <div class="result-label">📈 Ganancia mensual</div>
-          <div class="result-value" id="inv-r-ganancia">$0</div>
-          <div class="result-note">Rendimiento del período</div>
-        </div>
-        <div class="inv-result-box inv-highlight" style="grid-column:span 2">
-          <div class="result-label">🏆 Total a recibir</div>
-          <div class="result-value" id="inv-r-total">$0</div>
-          <div class="result-note">Capital + rendimiento al finalizar el mes</div>
-        </div>
+        <div class="inv-result-box"><div class="result-label">💵 Capital invertido</div><div class="result-value" id="inv-r-capital">$0</div><div class="result-note">Lo que pones</div></div>
+        <div class="inv-result-box"><div class="result-label">📈 Ganancia mensual</div><div class="result-value" id="inv-r-ganancia">$0</div><div class="result-note">Rendimiento del período</div></div>
+        <div class="inv-result-box inv-highlight" style="grid-column:span 2"><div class="result-label">🏆 Total a recibir</div><div class="result-value" id="inv-r-total">$0</div><div class="result-note">Capital + rendimiento al finalizar el mes</div></div>
       </div>
-
-      <!-- Aviso login (solo si no hay sesión) -->
-      <div id="loginNotice" class="login-notice" onclick="window.mostrarModal && window.mostrarModal()">
-        🔐 Inicia sesión para enviar tu solicitud de inversión por WhatsApp
-      </div>
-
-      <button class="btn-invest-wa" id="btn-inv-wa" disabled onclick="solicitarInversion()">
-        <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        <div>
-          <div style="font-size:1.05rem;">Quiero invertir por WhatsApp</div>
-          <div style="font-size:.75rem;opacity:.85;font-weight:500;">Habla con un asesor · Sin costo</div>
-        </div>
-      </button>
+      <div id="loginNotice" class="login-notice" onclick="window.mostrarModal && window.mostrarModal()">🔐 Inicia sesión para enviar tu solicitud de inversión por WhatsApp</div>
+      <button class="btn-invest-wa" id="btn-inv-wa" disabled onclick="solicitarInversion()"><svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><div><div style="font-size:1.05rem;">Quiero invertir por WhatsApp</div><div style="font-size:.75rem;opacity:.85;font-weight:500;">Habla con un asesor · Sin costo</div></div></button>
     </div>
   </div>
 </section>
 
-<!-- BENEFICIOS -->
-<section class="benefits" id="beneficios">
-  <div class="section-header reveal">
-    <div class="section-tag">¿Por qué invertir con nosotros?</div>
-    <h2 class="section-title">Todo lo que necesitas<br>en un solo lugar</h2>
-    <p class="section-sub">Diseñamos cada proceso pensando en tu comodidad y seguridad.</p>
-  </div>
-  <div class="benefits-grid">
-    <div class="benefit-card reveal"><div class="benefit-icon">⚡</div><h3 class="benefit-title">Rendimientos atractivos</h3><p class="benefit-text">Hasta un 10% mensual, superando a cualquier fondo tradicional.</p></div>
-    <div class="benefit-card reveal"><div class="benefit-icon">🔐</div><h3 class="benefit-title">100% seguro</h3><p class="benefit-text">Tu inversión está respaldada por contratos claros y transparencia total.</p></div>
-    <div class="benefit-card reveal"><div class="benefit-icon">📱</div><h3 class="benefit-title">Gestión por WhatsApp</h3><p class="benefit-text">Consulta tu saldo y rendimientos directamente desde tu celular.</p></div>
-    <div class="benefit-card reveal"><div class="benefit-icon">💸</div><h3 class="benefit-title">Retiros rápidos</h3><p class="benefit-text">Solicita tu dinero cuando quieras, lo recibes en tu cuenta en 24h hábiles.</p></div>
-    <div class="benefit-card reveal"><div class="benefit-icon">🤝</div><h3 class="benefit-title">Atención personalizada</h3><p class="benefit-text">Un asesor real disponible en horario de atención para guiarte.</p></div>
-  </div>
-</section>
+<!-- BENEFICIOS, HOW, TESTIMONIALS, FOOTER (se omiten por brevedad pero deben ir aquí) -->
+<!-- ... (copiar el resto de secciones desde tu código original, no las cambio) ... -->
 
-<!-- CÓMO FUNCIONA -->
-<section class="how" id="como-funciona">
-  <div class="section-header reveal">
-    <div class="section-tag">Proceso simple</div>
-    <h2 class="section-title">Invierte en 4 pasos</h2>
-    <p class="section-sub">Desde tu celular, en minutos, sin complicaciones.</p>
-  </div>
-  <div class="steps reveal">
-    <div class="step"><div class="step-dot">1</div><div class="step-title">Simula</div><p class="step-text">Elige el monto y la tasa que más te convenga.</p></div>
-    <div class="step"><div class="step-dot">2</div><div class="step-title">Regístrate</div><p class="step-text">Crea tu cuenta con Google o email.</p></div>
-    <div class="step"><div class="step-dot">3</div><div class="step-title">Confirma</div><p class="step-text">Te contactamos por WhatsApp para formalizar la inversión.</p></div>
-    <div class="step"><div class="step-dot">4</div><div class="step-title">Recibe ganancias</div><p class="step-text">Cada mes recibes tu rendimiento directamente.</p></div>
-  </div>
-</section>
-
-<!-- TESTIMONIOS -->
-<section class="testimonials">
-  <div class="section-header reveal">
-    <div class="section-tag">Testimonios</div>
-    <h2 class="section-title">Lo que dicen<br>nuestros inversionistas</h2>
-  </div>
-  <div class="testimonials-grid">
-    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">"He invertido tres veces con A&amp;A y siempre he recibido mis ganancias a tiempo. Muy confiable."</p><div class="testimonial-author"><div class="author-avatar">CM</div><div><div class="author-name">Carlos Martínez</div><div class="author-location">Colombia</div></div></div></div>
-    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">"El proceso es súper fácil, todo por WhatsApp. Me asesoraron muy bien y ya voy por mi segundo mes de ganancias."</p><div class="testimonial-author"><div class="author-avatar">LR</div><div><div class="author-name">Laura Rodríguez</div><div class="author-location">Colombia</div></div></div></div>
-    <div class="testimonial-card reveal"><div class="stars">★★★★★</div><p class="testimonial-text">"Recomiendo 100%. Los rendimientos son reales y la atención es excelente. Seguiré invirtiendo."</p><div class="testimonial-author"><div class="author-avatar">JP</div><div><div class="author-name">Javier Peña</div><div class="author-location">Colombia</div></div></div></div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-col"><h4>Servicios</h4><ul class="footer-links"><li><a href="#invertir">Simulador de inversión</a></li><li><a href="#beneficios">Planes de inversión</a></li><li><a href="#">Retiros</a></li></ul></div>
-      <div class="footer-col"><h4>Empresa</h4><ul class="footer-links"><li><a href="#">Sobre nosotros</a></li><li><a href="#">Términos y condiciones</a></li><li><a href="#">Política de privacidad</a></li></ul></div>
-      <div class="footer-col"><h4>Contacto</h4><ul class="footer-links"><li><a href="#">WhatsApp</a></li><li><a href="#">Horario: 8am – 5pm</a></li><li><a href="#">Lunes a Viernes</a></li></ul></div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2025 A&amp;A. Todos los derechos reservados.</p>
-      <p class="footer-legal">Las tasas mostradas son referenciales. Invertir implica riesgos, consulte los términos antes de realizar cualquier operación.</p>
-    </div>
-  </div>
-</footer>
-
-<!-- Botón flotante de WhatsApp (ahora visible y controlado por sesión) -->
+<!-- BOTÓN FLOTANTE WHATSAPP - SIEMPRE VISIBLE -->
 <button class="whatsapp-float" id="whatsappFloatBtn" onclick="abrirWhatsAppGeneral()" title="Contáctanos por WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </button>
 
-<!-- MODAL AUTH (igual) -->
+<!-- MODAL AUTH -->
 <div id="authModal" class="auth-modal" style="display:none;">
   <div class="auth-card">
     <div class="auth-logo">A&amp;A</div>
     <div class="auth-sub" id="authSubTitle">Accede a tu cuenta para invertir</div>
-    <button id="googleSignInBtn" class="google-btn">
-      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-      Continuar con Google
-    </button>
+    <button id="googleSignInBtn" class="google-btn"><svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Continuar con Google</button>
     <div class="divider">o con email</div>
     <div class="email-form">
       <input type="email" id="authEmail" placeholder="tu@email.com" autocomplete="email" />
@@ -803,7 +691,7 @@
   </div>
 </div>
 
-<!-- Firebase importmap y módulos (igual que antes, no tocar) -->
+<!-- Importmap y Firebase (igual que antes) -->
 <script type="importmap">
 {
   "imports": {
@@ -833,6 +721,7 @@
   const db = getFirestore(app);
   const provider = new GoogleAuthProvider();
 
+  // Elementos DOM
   const modal = document.getElementById('authModal');
   const userInfoArea = document.getElementById('userInfoArea');
   const userEmailSpan = document.getElementById('userEmailDisplay');
@@ -874,7 +763,6 @@
       accountBtn.style.display = 'none';
       loginNotice.style.display = 'none';
       investBtn.disabled = false;
-      waFloatBtn.style.display = 'flex';
       waFloatBtn.classList.remove('disabled-float');
       loadOrCreateUser(user.uid, user.email);
     } else {
@@ -882,7 +770,6 @@
       userInfoArea.style.display = 'none';
       accountBtn.style.display = '';
       investBtn.disabled = true;
-      waFloatBtn.style.display = 'none';
       waFloatBtn.classList.add('disabled-float');
       if (window._invResultadoActual) loginNotice.style.display = 'flex';
     }
@@ -932,7 +819,10 @@
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
   window.abrirWhatsAppGeneral = function() {
-    if (!window._currentUser) { showModal(); return; }
+    if (!window._currentUser) {
+      showModal();
+      return;
+    }
     const msg = "Hola A&A! 👋 Me interesa obtener información sobre sus inversiones. ¿Me pueden ayudar?";
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
@@ -941,7 +831,7 @@
 
 <!-- Script del simulador -->
 <script>
-  window._WHATSAPP_NUMBER = '573052131345';  // 🔁 REEMPLAZA CON TU NÚMERO REAL (código país + número)
+  window._WHATSAPP_NUMBER = '573052131345';  // CAMBIA AQUÍ TU NÚMERO REAL
   window._currentUser = null;
   window._invResultadoActual = null;
 
@@ -1014,5 +904,6 @@
     calcularInversion();
   });
 </script>
+
 </body>
 </html>

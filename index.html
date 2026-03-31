@@ -129,6 +129,176 @@
       font-size:.84rem;font-weight:500;color:var(--accent2);
       animation:fadeUp .65s ease .25s both;
     }
+
+    /* TARJETA ANIMADA */
+    .hero-card-wrap{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      margin-top:26px;
+      perspective:1200px;
+      animation:fadeUp .65s ease .3s both;
+    }
+
+    .credit-card-visual{
+      width:min(100%, 370px);
+      aspect-ratio: 1.585 / 1;
+      border-radius:24px;
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.12), transparent 22%),
+        linear-gradient(135deg, #171717 0%, #090909 48%, #121212 100%);
+      border:1px solid rgba(229,9,20,.25);
+      box-shadow:0 24px 70px rgba(0,0,0,.65), 0 0 40px rgba(229,9,20,.12);
+      transform-style:preserve-3d;
+      animation:cardFloat 6s ease-in-out infinite, cardPulse 4s ease-in-out infinite;
+    }
+
+    .credit-card-visual::before{
+      content:'';
+      position:absolute;
+      inset:-35%;
+      background:linear-gradient(120deg, transparent 35%, rgba(255,255,255,.12) 50%, transparent 65%);
+      transform:translateX(-60%) rotate(12deg);
+      animation:cardSweep 5.5s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    .credit-card-visual::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 80% 18%, rgba(229,9,20,.18), transparent 22%),
+        radial-gradient(circle at 18% 82%, rgba(37,211,102,.08), transparent 18%);
+      pointer-events:none;
+    }
+
+    @keyframes cardFloat{
+      0%,100%{ transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+      50%{ transform: translateY(-8px) rotateX(6deg) rotateY(-6deg); }
+    }
+
+    @keyframes cardPulse{
+      0%,100%{ box-shadow:0 24px 70px rgba(0,0,0,.65), 0 0 40px rgba(229,9,20,.12); }
+      50%{ box-shadow:0 28px 80px rgba(0,0,0,.72), 0 0 60px rgba(229,9,20,.2); }
+    }
+
+    @keyframes cardSweep{
+      0%{ transform:translateX(-70%) rotate(12deg); opacity:0; }
+      20%{ opacity:1; }
+      50%{ transform:translateX(70%) rotate(12deg); opacity:.95; }
+      80%{ opacity:0; }
+      100%{ transform:translateX(70%) rotate(12deg); opacity:0; }
+    }
+
+    .card-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      position:relative;
+      z-index:1;
+    }
+
+    .card-chip{
+      width:46px;
+      height:36px;
+      border-radius:10px;
+      position:relative;
+      background:linear-gradient(135deg, #ead08b 0%, #b68a3d 45%, #7e5a1f 100%);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:inset 0 0 18px rgba(255,255,255,.14);
+      overflow:hidden;
+    }
+
+    .card-chip span{
+      position:absolute;
+      background:rgba(0,0,0,.18);
+    }
+    .card-chip span:nth-child(1){ left:50%; top:0; width:1px; height:100%; }
+    .card-chip span:nth-child(2){ top:50%; left:0; width:100%; height:1px; }
+    .card-chip span:nth-child(3){ left:8px; right:8px; top:8px; height:1px; }
+    .card-chip span:nth-child(4){ left:8px; right:8px; bottom:8px; height:1px; }
+
+    .card-brand{
+      font-family:var(--font-d);
+      font-weight:800;
+      font-size:1.35rem;
+      letter-spacing:.5px;
+      color:#fff;
+      text-shadow:0 0 18px rgba(255,255,255,.12);
+    }
+
+    .card-title{
+      margin-top:22px;
+      font-size:.72rem;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      color:var(--text-muted);
+      position:relative;
+      z-index:1;
+    }
+
+    .card-number{
+      margin-top:10px;
+      font-family:var(--font-d);
+      font-weight:800;
+      font-size:clamp(1.1rem, 3.6vw, 1.8rem);
+      letter-spacing:4px;
+      word-spacing:6px;
+      color:#fff;
+      position:relative;
+      z-index:1;
+    }
+
+    .card-bottom{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:14px;
+      margin-top:26px;
+      position:relative;
+      z-index:1;
+    }
+
+    .card-field{
+      font-size:.72rem;
+      color:var(--text-dim);
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+
+    .card-field strong{
+      display:block;
+      margin-top:6px;
+      font-size:.92rem;
+      color:#fff;
+      text-transform:none;
+      letter-spacing:0;
+    }
+
+    .approved-badge{
+      position:absolute;
+      right:18px;
+      bottom:18px;
+      z-index:1;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.75rem;
+      font-weight:700;
+      color:#8df0b0;
+      background:rgba(37,211,102,.1);
+      border:1px solid rgba(37,211,102,.22);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter:blur(8px);
+    }
+
     @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
     /* SIMULADOR */
@@ -285,7 +455,8 @@
     .whatsapp-float {
       position:fixed;bottom:28px;right:28px;z-index:300;
       width:64px;height:64px;border-radius:50%;border:none;
-      display:flex;align-items:center;justify-content:center;
+      display:none;
+      align-items:center;justify-content:center;
       background:linear-gradient(135deg,#25d366,#1aad54);
       box-shadow:0 6px 30px rgba(37,211,102,.55);
       animation:fadeInFloat 1s ease 2s both, floatWA 3s ease-in-out 3s infinite;
@@ -364,6 +535,40 @@
       .footer-legal{text-align:center}
       nav .nav-links li:not(:last-child){display:none}
       .inv-card{padding:32px 22px 28px}
+      .hero-card-wrap{margin-top:22px}
+      .credit-card-visual{width:min(100%, 340px)}
+    }
+
+    @media(max-width:600px){
+      nav{padding:14px 4%}
+      .hero{
+        padding:108px 4% 46px;
+        min-height:auto;
+      }
+      .hero-title{
+        font-size:clamp(2rem, 10vw, 2.6rem);
+      }
+      .hero-subtitle{
+        font-size:.98rem;
+      }
+      .hours-badge{
+        font-size:.78rem;
+        padding:10px 12px;
+      }
+      .credit-card-visual{
+        padding:18px;
+        border-radius:20px;
+      }
+      .card-number{
+        letter-spacing:2px;
+        word-spacing:3px;
+        font-size:1.12rem;
+      }
+      .approved-badge{
+        right:14px;
+        bottom:14px;
+        font-size:.7rem;
+      }
     }
   </style>
 </head>
@@ -396,6 +601,27 @@
     <h1 class="hero-title">Inversiones <span class="gradient-text">seguras</span><br>con altos rendimientos</h1>
     <p class="hero-subtitle">Invierte desde $100.000 y obtén hasta un 10% mensual. Sin sorpresas, todo digital.</p>
     <div class="hours-badge">🕗 Atención: Lunes a Viernes 8:00 AM – 5:00 PM · Sábados 8:00 AM – 12:00 PM</div>
+
+    <div class="hero-card-wrap">
+      <div class="credit-card-visual" aria-label="Tarjeta animada de A&A">
+        <div class="card-top">
+          <div class="card-chip" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <div class="card-brand">A&amp;A</div>
+        </div>
+
+        <div class="card-title">Secure investment card</div>
+        <div class="card-number">4821 •••• •••• 7934</div>
+
+        <div class="card-bottom">
+          <div class="card-field">Titular <strong>Adrian G.</strong></div>
+          <div class="card-field">Válido <strong>08/28</strong></div>
+        </div>
+
+        <div class="approved-badge">✅ Aprobado $500,000</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -541,7 +767,7 @@
   </div>
 </footer>
 
-<!-- Botón flotante con clase condicional -->
+<!-- Botón flotante -->
 <button class="whatsapp-float" id="whatsappFloatBtn" onclick="abrirWhatsAppGeneral()" title="Contáctanos por WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </button>
@@ -599,7 +825,6 @@
     getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion
   } from "firebase/firestore";
 
-  // 🔥 TU CONFIG DE FIREBASE
   const firebaseConfig = {
     apiKey:            "AIzaSyD47LwjVajUEoa1SFY1zlN0RjgiqL025Wg",
     authDomain:        "inversiones-aa.firebaseapp.com",
@@ -614,7 +839,6 @@
   const db       = getFirestore(app);
   const provider = new GoogleAuthProvider();
 
-  // --- DOM ---
   const modal         = document.getElementById('authModal');
   const userInfoArea  = document.getElementById('userInfoArea');
   const userEmailSpan = document.getElementById('userEmailDisplay');
@@ -625,7 +849,6 @@
   const investBtn     = document.getElementById('btn-inv-wa');
   const waFloatBtn    = document.getElementById('whatsappFloatBtn');
 
-  // --- Helpers UI ---
   const showModal  = () => { modal.style.display = 'flex'; };
   const hideModal  = () => { modal.style.display = 'none'; clearAuthMsg(); };
 
@@ -640,7 +863,6 @@
     el.style.display = 'none';
   }
 
-  // --- Firestore: crear/cargar usuario ---
   async function loadOrCreateUser(uid, email) {
     try {
       const ref  = doc(db, "users", uid);
@@ -651,7 +873,6 @@
     } catch(e) { console.error("Firestore:", e); }
   }
 
-  // --- Guardar inversión ---
   async function saveInvestmentRequest(uid, data) {
     const ref = doc(db, "users", uid);
     await updateDoc(ref, {
@@ -659,7 +880,6 @@
     });
   }
 
-  // --- Auth state ---
   onAuthStateChanged(auth, (user) => {
     if (user) {
       window._currentUser = user;
@@ -667,23 +887,21 @@
       userInfoArea.style.display = 'flex';
       accountBtn.style.display   = 'none';
       loginNotice.style.display  = 'none';
-      // Habilitar botón grande y quitar clase de deshabilitado al flotante
       investBtn.disabled = false;
+      waFloatBtn.style.display = 'flex';
       waFloatBtn.classList.remove('disabled-float');
       loadOrCreateUser(user.uid, user.email);
     } else {
       window._currentUser        = null;
       userInfoArea.style.display = 'none';
       accountBtn.style.display   = '';
-      // Deshabilitar botón grande y agregar clase al flotante
       investBtn.disabled = true;
+      waFloatBtn.style.display = 'none';
       waFloatBtn.classList.add('disabled-float');
-      // Mostrar aviso si hay simulación
       if (window._invResultadoActual) loginNotice.style.display = 'flex';
     }
   });
 
-  // --- Google Sign-In ---
   googleBtn.addEventListener('click', async () => {
     try {
       await signInWithPopup(auth, provider);
@@ -694,7 +912,6 @@
     }
   });
 
-  // --- Email Auth ---
   let isRegisterMode = false;
 
   window.toggleAuthMode = () => {
@@ -745,10 +962,8 @@
     })
   );
 
-  // --- Logout ---
   document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
 
-  // --- Botón "Mi Cuenta" ---
   accountBtn.addEventListener('click', e => {
     e.preventDefault();
     window._currentUser ? alert(`Sesión activa: ${window._currentUser.email}`) : showModal();
@@ -756,14 +971,9 @@
 
   closeModalBtn.addEventListener('click', hideModal);
 
-  // =========================================================
-  // ✅ SOLICITAR INVERSIÓN (botón grande) ya verifica disabled en HTML
-  // =========================================================
   window.solicitarInversion = async function() {
     const resultado = window._invResultadoActual;
     if (!resultado) return;
-
-    // Seguridad extra: si no hay usuario, mostrar modal y no continuar
     if (!window._currentUser) { showModal(); return; }
 
     const { capital, ganancia, total, tasa } = resultado;
@@ -777,9 +987,6 @@
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
-  // =========================================================
-  // ✅ BOTÓN FLOTANTE: verifica sesión antes de abrir
-  // =========================================================
   window.abrirWhatsAppGeneral = function() {
     if (!window._currentUser) {
       showModal();
@@ -789,15 +996,13 @@
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
-  // Formateo accesible globalmente
   window._fmt = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
 </script>
 
 <!-- ===== SIMULADOR (script normal) ===== -->
 <script>
-  // ✅ Todas las vars compartidas en window._ para que el módulo las lea
-  window._WHATSAPP_NUMBER    = '573052131345'; // 👈 Cambia por tu número de WhatsApp (ej: 573001234567)
-  window._currentUser        = null;           // Firebase lo actualiza
+  window._WHATSAPP_NUMBER    = '573052131345';
+  window._currentUser        = null;
   window._invResultadoActual = null;
 
   let invTasa = 7.5;
@@ -845,14 +1050,12 @@
     const ganancia = capital * (invTasa / 100);
     const total    = capital + ganancia;
 
-    // ✅ Guardar en window para que el módulo Firebase lo lea
     window._invResultadoActual = { capital, ganancia, total, tasa: invTasa };
 
     animarValor('inv-r-capital',  capital);
     animarValor('inv-r-ganancia', ganancia);
     animarValor('inv-r-total',    total);
 
-    // Mostrar aviso si no hay sesión activa
     if (!window._currentUser) loginNotice.style.display = 'flex';
     else loginNotice.style.display = 'none';
   }
@@ -867,7 +1070,6 @@
     })();
   }
 
-  // Scroll reveal
   (() => {
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } });
@@ -875,12 +1077,10 @@
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   })();
 
-  // Navbar scroll
   window.addEventListener('scroll', () =>
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40)
   );
 
-  // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a =>
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
@@ -888,7 +1088,6 @@
     })
   );
 
-  // Init
   window.addEventListener('DOMContentLoaded', () => {
     invMontoInput.value  = 500000;
     invMontoSlider.value = 500000;

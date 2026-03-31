@@ -949,17 +949,23 @@
       loginNotice.style.display  = 'none';
       loadOrCreateUser(user.uid, user.email);
 
-      // Actualizar titular en la tarjeta
+      // Actualizar titular en la tarjeta con nombre real
       const nameEl = document.getElementById('cardHolderName');
       if (nameEl) {
-        const namePart = user.displayName || user.email.split('@')[0];
-        nameEl.textContent = namePart.charAt(0).toUpperCase() + namePart.slice(1, 12);
+        let nombre = user.displayName || user.email.split('@')[0];
+        nombre = nombre.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
+        nombre = nombre.trim().split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ');
+        nameEl.textContent = nombre.slice(0, 16) || 'Inversionista';
       }
     } else {
       window._currentUser        = null;
       userInfoArea.style.display = 'none';
       accountBtn.style.display   = '';
       if (window._invResultadoActual) loginNotice.style.display = 'flex';
+
+      // Resetear titular
+      const nameEl = document.getElementById('cardHolderName');
+      if (nameEl) nameEl.textContent = 'Inversionista';
     }
   });
 
@@ -1041,13 +1047,17 @@
   //    y window._invResultadoActual (definidos en el script normal)
   // =========================================================
   window.solicitarInversion = async function() {
-    // Sin sesión → abrir modal y salir
     const user = window._currentUser || auth.currentUser;
     if (!user) { showModal(); return; }
-    window._currentUser = user; // asegurar sincronía
+    window._currentUser = user;
 
     const resultado = window._invResultadoActual;
     const f = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
+
+    // Obtener nombre limpio del usuario
+    let nombre = user.displayName || user.email.split('@')[0];
+    nombre = nombre.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '').trim();
+    nombre = nombre.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ') || 'Inversionista';
 
     let msg;
     if (resultado) {
@@ -1055,16 +1065,63 @@
       try {
         await saveInvestmentRequest(user.uid, { amount: capital, profit: ganancia, total, rate: tasa });
       } catch(e) { console.error("Error guardando inversión:", e); }
-      msg = `Hola A&A! 👋 Me interesa invertir:\n\n💰 *Capital:* ${f(capital)}\n📈 *Tasa:* ${tasa}% mensual\n🏆 *Ganancia:* ${f(Math.round(ganancia))}\n✅ *Total:* ${f(Math.round(total))}\n\n¿Me dan más información? 🙏`;
+      msg =
+`Buenas, mi nombre es *${nombre}*.
+
+Me interesa iniciar una inversión con A&A bajo las siguientes condiciones:
+
+💰 *Capital a invertir:* ${f(capital)}
+📈 *Tasa mensual:* ${tasa}%
+📊 *Ganancia proyectada:* ${f(Math.round(ganancia))}
+🏆 *Total al finalizar el mes:* ${f(Math.round(total))}
+
+Quedo atento/a a sus indicaciones para formalizar la inversión. Muchas gracias. 🙏`;
     } else {
-      msg = `Hola A&A! 👋 Soy *${user.email}* y me interesa obtener información sobre sus planes de inversión. ¿Me pueden ayudar? 🙏`;
+      msg =
+`Buenas, mi nombre es *${nombre}*.
+
+Me interesa obtener información sobre sus planes de inversión disponibles en A&A.
+
+Quedo atento/a a su respuesta. Muchas gracias. 🙏`;
     }
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   // ✅ FIX: abrirWhatsAppGeneral usa window._WHATSAPP_NUMBER
   window.abrirWhatsAppGeneral = function() {
-    const msg = `Hola A&A! 👋 Me interesa obtener información sobre sus inversiones. ¿Me pueden ayudar?`;
+    const user = window._currentUser || auth.currentUser;
+    let nombre = 'un interesado';
+    if (user) {
+      let n = user.displayName || user.email.split('@')[0];
+      n = n.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '').trim();
+      nombre = n.split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1).toLowerCase()).join(' ') || nombre;
+    }
+
+    const resultado = window._invResultadoActual;
+    const f = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
+
+    let msg;
+    if (user && resultado) {
+      const { capital, ganancia, total, tasa } = resultado;
+      msg =
+`Buenas, mi nombre es *${nombre}*.
+
+Me interesa iniciar una inversión con A&A bajo las siguientes condiciones:
+
+💰 *Capital a invertir:* ${f(capital)}
+📈 *Tasa mensual:* ${tasa}%
+📊 *Ganancia proyectada:* ${f(Math.round(ganancia))}
+🏆 *Total al finalizar el mes:* ${f(Math.round(total))}
+
+Quedo atento/a a sus indicaciones para formalizar la inversión. Muchas gracias. 🙏`;
+    } else {
+      msg =
+`Buenas, mi nombre es *${nombre}*.
+
+Me interesa obtener información sobre sus planes de inversión disponibles en A&A.
+
+Quedo atento/a a su respuesta. Muchas gracias. 🙏`;
+    }
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 

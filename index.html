@@ -452,16 +452,24 @@
     .footer-copy { font-size:.82rem;color:var(--text-dim); }
     .footer-legal { font-size:.78rem;color:var(--text-dim);max-width:500px;text-align:right;line-height:1.5; }
 
+    /* ========== BOTÓN FLOTANTE WHATSAPP ========== */
     .whatsapp-float {
-      position:fixed;bottom:28px;right:28px;z-index:300;
-      width:64px;height:64px;border-radius:50%;border:none;
-      display:none;
-      align-items:center;justify-content:center;
+      position:fixed;
+      bottom:28px;
+      right:28px;
+      z-index:300;
+      width:64px;
+      height:64px;
+      border-radius:50%;
+      border:none;
       background:linear-gradient(135deg,#25d366,#1aad54);
       box-shadow:0 6px 30px rgba(37,211,102,.55);
-      animation:fadeInFloat 1s ease 2s both, floatWA 3s ease-in-out 3s infinite;
-      transition:transform 0.2s, opacity 0.2s;
       cursor:pointer;
+      display:flex;          /* visible por defecto, pero el script lo ocultará si no hay sesión */
+      align-items:center;
+      justify-content:center;
+      transition:transform 0.2s, opacity 0.2s;
+      animation:fadeInFloat 1s ease 2s both, floatWA 3s ease-in-out 3s infinite;
     }
     .whatsapp-float.disabled-float {
       opacity:0.5;
@@ -471,7 +479,7 @@
       transform:none;
     }
     .whatsapp-float:not(.disabled-float):hover { transform:scale(1.08); }
-    .whatsapp-float svg { width:32px;height:32px;fill:#fff; }
+    .whatsapp-float svg { width:32px; height:32px; fill:#fff; }
     @keyframes fadeInFloat { from{opacity:0;transform:scale(.4)} to{opacity:1;transform:scale(1)} }
     @keyframes floatWA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
 
@@ -537,6 +545,7 @@
       .inv-card{padding:32px 22px 28px}
       .hero-card-wrap{margin-top:22px}
       .credit-card-visual{width:min(100%, 340px)}
+      .whatsapp-float { width:56px; height:56px; bottom:20px; right:20px; }
     }
 
     @media(max-width:600px){
@@ -569,6 +578,7 @@
         bottom:14px;
         font-size:.7rem;
       }
+      .whatsapp-float { width:52px; height:52px; }
     }
   </style>
 </head>
@@ -767,29 +777,21 @@
   </div>
 </footer>
 
-<!-- Botón flotante -->
+<!-- Botón flotante de WhatsApp (ahora visible y controlado por sesión) -->
 <button class="whatsapp-float" id="whatsappFloatBtn" onclick="abrirWhatsAppGeneral()" title="Contáctanos por WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </button>
 
-<!-- MODAL AUTH -->
+<!-- MODAL AUTH (igual) -->
 <div id="authModal" class="auth-modal" style="display:none;">
   <div class="auth-card">
     <div class="auth-logo">A&amp;A</div>
     <div class="auth-sub" id="authSubTitle">Accede a tu cuenta para invertir</div>
-
     <button id="googleSignInBtn" class="google-btn">
-      <svg width="20" height="20" viewBox="0 0 48 48">
-        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-      </svg>
+      <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
       Continuar con Google
     </button>
-
     <div class="divider">o con email</div>
-
     <div class="email-form">
       <input type="email" id="authEmail" placeholder="tu@email.com" autocomplete="email" />
       <input type="password" id="authPassword" placeholder="Contraseña (mín. 6 caracteres)" autocomplete="current-password" />
@@ -797,87 +799,71 @@
       <button class="toggle-mode" onclick="toggleAuthMode()">¿No tienes cuenta? Regístrate aquí</button>
       <div id="authMsg" class="auth-msg" style="display:none;"></div>
     </div>
-
     <button class="close-btn" id="closeModal">Cancelar</button>
   </div>
 </div>
 
-<!-- ===== FIREBASE importmap ===== -->
+<!-- Firebase importmap y módulos (igual que antes, no tocar) -->
 <script type="importmap">
 {
   "imports": {
-    "firebase/app":       "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
-    "firebase/auth":      "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+    "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+    "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
     "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
   }
 }
 </script>
 
-<!-- ===== FIREBASE MODULE ===== -->
 <script type="module">
   import { initializeApp } from "firebase/app";
-  import {
-    getAuth, signInWithPopup, GoogleAuthProvider,
-    signOut, onAuthStateChanged,
-    createUserWithEmailAndPassword, signInWithEmailAndPassword
-  } from "firebase/auth";
-  import {
-    getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion
-  } from "firebase/firestore";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+  import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 
   const firebaseConfig = {
-    apiKey:            "AIzaSyD47LwjVajUEoa1SFY1zlN0RjgiqL025Wg",
-    authDomain:        "inversiones-aa.firebaseapp.com",
-    projectId:         "inversiones-aa",
-    storageBucket:     "inversiones-aa.firebasestorage.app",
+    apiKey: "AIzaSyD47LwjVajUEoa1SFY1zlN0RjgiqL025Wg",
+    authDomain: "inversiones-aa.firebaseapp.com",
+    projectId: "inversiones-aa",
+    storageBucket: "inversiones-aa.firebasestorage.app",
     messagingSenderId: "661902970671",
-    appId:             "1:661902970671:web:3530f7fe1de2e32ff3dbda"
+    appId: "1:661902970671:web:3530f7fe1de2e32ff3dbda"
   };
 
-  const app      = initializeApp(firebaseConfig);
-  const auth     = getAuth(app);
-  const db       = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
   const provider = new GoogleAuthProvider();
 
-  const modal         = document.getElementById('authModal');
-  const userInfoArea  = document.getElementById('userInfoArea');
+  const modal = document.getElementById('authModal');
+  const userInfoArea = document.getElementById('userInfoArea');
   const userEmailSpan = document.getElementById('userEmailDisplay');
-  const accountBtn    = document.getElementById('accountBtn');
+  const accountBtn = document.getElementById('accountBtn');
   const closeModalBtn = document.getElementById('closeModal');
-  const googleBtn     = document.getElementById('googleSignInBtn');
-  const loginNotice   = document.getElementById('loginNotice');
-  const investBtn     = document.getElementById('btn-inv-wa');
-  const waFloatBtn    = document.getElementById('whatsappFloatBtn');
+  const googleBtn = document.getElementById('googleSignInBtn');
+  const loginNotice = document.getElementById('loginNotice');
+  const investBtn = document.getElementById('btn-inv-wa');
+  const waFloatBtn = document.getElementById('whatsappFloatBtn');
 
-  const showModal  = () => { modal.style.display = 'flex'; };
-  const hideModal  = () => { modal.style.display = 'none'; clearAuthMsg(); };
-
+  const showModal = () => modal.style.display = 'flex';
+  const hideModal = () => { modal.style.display = 'none'; clearAuthMsg(); };
   window.mostrarModal = showModal;
 
   function showAuthMsg(msg, type = 'error') {
     const el = document.getElementById('authMsg');
     el.textContent = msg; el.className = 'auth-msg ' + type; el.style.display = 'block';
   }
-  function clearAuthMsg() {
-    const el = document.getElementById('authMsg');
-    el.style.display = 'none';
-  }
+  function clearAuthMsg() { const el = document.getElementById('authMsg'); el.style.display = 'none'; }
 
   async function loadOrCreateUser(uid, email) {
     try {
-      const ref  = doc(db, "users", uid);
+      const ref = doc(db, "users", uid);
       const snap = await getDoc(ref);
-      if (!snap.exists()) {
-        await setDoc(ref, { email, balance: 0, investments: [], createdAt: new Date() });
-      }
+      if (!snap.exists()) await setDoc(ref, { email, balance: 0, investments: [], createdAt: new Date() });
     } catch(e) { console.error("Firestore:", e); }
   }
 
   async function saveInvestmentRequest(uid, data) {
     const ref = doc(db, "users", uid);
-    await updateDoc(ref, {
-      investments: arrayUnion({ ...data, date: new Date().toISOString(), status: "pending" })
-    });
+    await updateDoc(ref, { investments: arrayUnion({ ...data, date: new Date().toISOString(), status: "pending" }) });
   }
 
   onAuthStateChanged(auth, (user) => {
@@ -885,16 +871,16 @@
       window._currentUser = user;
       userEmailSpan.textContent = user.email;
       userInfoArea.style.display = 'flex';
-      accountBtn.style.display   = 'none';
-      loginNotice.style.display  = 'none';
+      accountBtn.style.display = 'none';
+      loginNotice.style.display = 'none';
       investBtn.disabled = false;
       waFloatBtn.style.display = 'flex';
       waFloatBtn.classList.remove('disabled-float');
       loadOrCreateUser(user.uid, user.email);
     } else {
-      window._currentUser        = null;
+      window._currentUser = null;
       userInfoArea.style.display = 'none';
-      accountBtn.style.display   = '';
+      accountBtn.style.display = '';
       investBtn.disabled = true;
       waFloatBtn.style.display = 'none';
       waFloatBtn.classList.add('disabled-float');
@@ -902,160 +888,100 @@
     }
   });
 
-  googleBtn.addEventListener('click', async () => {
-    try {
-      await signInWithPopup(auth, provider);
-      hideModal();
-    } catch (e) {
-      console.error(e);
-      showAuthMsg("No se pudo iniciar sesión con Google. Intenta de nuevo.");
-    }
-  });
+  googleBtn.onclick = async () => { try { await signInWithPopup(auth, provider); hideModal(); } catch(e) { showAuthMsg("Error con Google"); } };
+  closeModalBtn.onclick = hideModal;
+  accountBtn.onclick = (e) => { e.preventDefault(); window._currentUser ? alert(`Sesión: ${window._currentUser.email}`) : showModal(); };
+  document.getElementById('logoutBtn').onclick = () => signOut(auth);
 
   let isRegisterMode = false;
-
   window.toggleAuthMode = () => {
     isRegisterMode = !isRegisterMode;
     document.getElementById('emailActionBtn').textContent = isRegisterMode ? 'Crear cuenta' : 'Iniciar sesión';
-    document.querySelector('.toggle-mode').textContent    = isRegisterMode ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí';
-    document.getElementById('authSubTitle').textContent  = isRegisterMode ? 'Crea tu cuenta gratis' : 'Accede a tu cuenta para invertir';
+    document.querySelector('.toggle-mode').textContent = isRegisterMode ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí';
+    document.getElementById('authSubTitle').textContent = isRegisterMode ? 'Crea tu cuenta gratis' : 'Accede a tu cuenta para invertir';
     clearAuthMsg();
   };
-
   window.handleEmailAuth = async () => {
-    const email    = document.getElementById('authEmail').value.trim();
+    const email = document.getElementById('authEmail').value.trim();
     const password = document.getElementById('authPassword').value;
-    if (!email || !password)   { showAuthMsg("Completa todos los campos."); return; }
-    if (password.length < 6)   { showAuthMsg("La contraseña debe tener al menos 6 caracteres."); return; }
-
+    if (!email || !password) { showAuthMsg("Completa todos los campos."); return; }
+    if (password.length < 6) { showAuthMsg("Mínimo 6 caracteres."); return; }
     const btn = document.getElementById('emailActionBtn');
     btn.disabled = true; btn.textContent = 'Procesando...';
     clearAuthMsg();
-
     try {
-      if (isRegisterMode) {
-        await createUserWithEmailAndPassword(auth, email, password);
-        showAuthMsg("¡Cuenta creada! Bienvenido/a 🎉", 'success');
-        setTimeout(hideModal, 1200);
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-        hideModal();
-      }
+      if (isRegisterMode) await createUserWithEmailAndPassword(auth, email, password);
+      else await signInWithEmailAndPassword(auth, email, password);
+      hideModal();
     } catch (error) {
-      const msgs = {
-        'auth/user-not-found':       'No existe una cuenta con ese email.',
-        'auth/wrong-password':       'Contraseña incorrecta.',
-        'auth/email-already-in-use': 'Ese email ya está registrado. Inicia sesión.',
-        'auth/invalid-email':        'El email no tiene un formato válido.',
-        'auth/invalid-credential':   'Email o contraseña incorrectos.',
-      };
-      showAuthMsg(msgs[error.code] || 'Ocurrió un error. Intenta de nuevo.');
-    } finally {
-      btn.disabled = false;
-      btn.textContent = isRegisterMode ? 'Crear cuenta' : 'Iniciar sesión';
-    }
+      const msgs = { 'auth/user-not-found': 'Usuario no existe.', 'auth/wrong-password': 'Contraseña incorrecta.', 'auth/email-already-in-use': 'Email ya registrado.', 'auth/invalid-email': 'Email inválido.' };
+      showAuthMsg(msgs[error.code] || 'Error, intenta de nuevo.');
+    } finally { btn.disabled = false; btn.textContent = isRegisterMode ? 'Crear cuenta' : 'Iniciar sesión'; }
   };
-
-  ['authEmail','authPassword'].forEach(id =>
-    document.getElementById(id)?.addEventListener('keydown', e => {
-      if (e.key === 'Enter') window.handleEmailAuth();
-    })
-  );
-
-  document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
-
-  accountBtn.addEventListener('click', e => {
-    e.preventDefault();
-    window._currentUser ? alert(`Sesión activa: ${window._currentUser.email}`) : showModal();
-  });
-
-  closeModalBtn.addEventListener('click', hideModal);
+  document.getElementById('authEmail')?.addEventListener('keydown', e => e.key === 'Enter' && window.handleEmailAuth());
+  document.getElementById('authPassword')?.addEventListener('keydown', e => e.key === 'Enter' && window.handleEmailAuth());
 
   window.solicitarInversion = async function() {
     const resultado = window._invResultadoActual;
     if (!resultado) return;
     if (!window._currentUser) { showModal(); return; }
-
     const { capital, ganancia, total, tasa } = resultado;
-
-    try {
-      await saveInvestmentRequest(window._currentUser.uid, { amount: capital, profit: ganancia, total, rate: tasa });
-    } catch(e) { console.error("Error guardando inversión:", e); }
-
-    const f   = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
-    const msg = `Hola A&A! 👋 Me interesa invertir:\n\n💰 *Capital:* ${f(capital)}\n📈 *Tasa:* ${tasa}% mensual\n🏆 *Ganancia:* ${f(Math.round(ganancia))}\n✅ *Total:* ${f(Math.round(total))}\n\n¿Me dan más información? 🙏`;
+    await saveInvestmentRequest(window._currentUser.uid, { amount: capital, profit: ganancia, total, rate: tasa });
+    const f = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
+    const msg = `Hola A&A! 👋 Me interesa invertir:\n💰 Capital: ${f(capital)}\n📈 Tasa: ${tasa}% mensual\n🏆 Ganancia: ${f(ganancia)}\n✅ Total: ${f(total)}\n\n¿Me dan más información? 🙏`;
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
-
   window.abrirWhatsAppGeneral = function() {
-    if (!window._currentUser) {
-      showModal();
-      return;
-    }
-    const msg = `Hola A&A! 👋 Me interesa obtener información sobre sus inversiones. ¿Me pueden ayudar?`;
+    if (!window._currentUser) { showModal(); return; }
+    const msg = "Hola A&A! 👋 Me interesa obtener información sobre sus inversiones. ¿Me pueden ayudar?";
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
-
-  window._fmt = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
+  window._fmt = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
 </script>
 
-<!-- ===== SIMULADOR (script normal) ===== -->
+<!-- Script del simulador -->
 <script>
-  window._WHATSAPP_NUMBER    = '573052131345';
-  window._currentUser        = null;
+  window._WHATSAPP_NUMBER = '573052131345';  // 🔁 REEMPLAZA CON TU NÚMERO REAL (código país + número)
+  window._currentUser = null;
   window._invResultadoActual = null;
 
   let invTasa = 7.5;
+  function fmt(v) { return (window._fmt || (n => '$' + n.toLocaleString('es-CO')))(v); }
 
-  function fmt(v) {
-    return (window._fmt || (n => '$' + Math.round(n).toLocaleString('es-CO')))(v);
-  }
-
-  const invMontoInput  = document.getElementById('inv-monto');
+  const invMontoInput = document.getElementById('inv-monto');
   const invMontoSlider = document.getElementById('inv-monto-slider');
-  const invTasaSlider  = document.getElementById('inv-tasa-slider');
-  const loginNotice    = document.getElementById('loginNotice');
+  const invTasaSlider = document.getElementById('inv-tasa-slider');
+  const loginNotice = document.getElementById('loginNotice');
 
   window.actualizarTasaDisplay = function(v) {
     invTasa = parseFloat(v);
-    document.getElementById('inv-tasa-val').textContent     = invTasa + '%';
+    document.getElementById('inv-tasa-val').textContent = invTasa + '%';
     document.getElementById('inv-tasa-display').textContent = invTasa + '%';
     invTasaSlider.style.setProperty('--fill', ((invTasa - 5) / 5 * 100) + '%');
     calcularInversion();
   };
-
-  window.setTasa = function(v) {
-    invTasaSlider.value = v;
-    actualizarTasaDisplay(v);
-  };
+  window.setTasa = function(v) { invTasaSlider.value = v; actualizarTasaDisplay(v); };
 
   invMontoInput.addEventListener('input', () => {
-    const v = Math.min(Math.max(Number(invMontoInput.value), 100000), 10000000);
+    let v = Math.min(Math.max(Number(invMontoInput.value), 100000), 10000000);
     invMontoSlider.value = v;
     calcularInversion();
   });
-
   invMontoSlider.addEventListener('input', () => {
     invMontoInput.value = invMontoSlider.value;
-    invMontoSlider.style.setProperty('--fill', ((invMontoSlider.value - 100000) / (10000000 - 100000) * 100) + '%');
     calcularInversion();
   });
-
   invTasaSlider.addEventListener('input', () => actualizarTasaDisplay(invTasaSlider.value));
 
   function calcularInversion() {
     const capital = parseFloat(invMontoInput.value) || 0;
     if (capital < 100000) return;
-
     const ganancia = capital * (invTasa / 100);
-    const total    = capital + ganancia;
-
+    const total = capital + ganancia;
     window._invResultadoActual = { capital, ganancia, total, tasa: invTasa };
-
-    animarValor('inv-r-capital',  capital);
+    animarValor('inv-r-capital', capital);
     animarValor('inv-r-ganancia', ganancia);
-    animarValor('inv-r-total',    total);
-
+    animarValor('inv-r-total', total);
     if (!window._currentUser) loginNotice.style.display = 'flex';
     else loginNotice.style.display = 'none';
   }
@@ -1064,12 +990,13 @@
     const el = document.getElementById(id);
     const dur = 550, t0 = Date.now();
     (function tick() {
-      const p = Math.min((Date.now()-t0)/dur, 1);
-      el.textContent = fmt(Math.round(final * (1-Math.pow(1-p,3))));
+      const p = Math.min((Date.now() - t0) / dur, 1);
+      el.textContent = fmt(Math.round(final * (1 - Math.pow(1 - p, 3))));
       if (p < 1) requestAnimationFrame(tick);
     })();
   }
 
+  // Scroll reveal
   (() => {
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } });
@@ -1077,24 +1004,15 @@
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   })();
 
-  window.addEventListener('scroll', () =>
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40)
-  );
-
-  document.querySelectorAll('a[href^="#"]').forEach(a =>
-    a.addEventListener('click', e => {
-      const t = document.querySelector(a.getAttribute('href'));
-      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
-    })
-  );
+  window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40));
+  document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => { const t = document.querySelector(a.getAttribute('href')); if(t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); } }));
 
   window.addEventListener('DOMContentLoaded', () => {
-    invMontoInput.value  = 500000;
+    invMontoInput.value = 500000;
     invMontoSlider.value = 500000;
     actualizarTasaDisplay(7.5);
     calcularInversion();
   });
 </script>
-
 </body>
 </html>

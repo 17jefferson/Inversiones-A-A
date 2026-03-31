@@ -1043,10 +1043,9 @@
   closeModalBtn.addEventListener('click', hideModal);
 
   // ---- Listener directo del banner WhatsApp ----
-  document.getElementById('btn-inv-wa').addEventListener('click', async function() {
+  document.getElementById('btn-inv-wa').addEventListener('click', function() {
     const user = window._currentUser || auth.currentUser;
     if (!user) { showModal(); return; }
-    window._currentUser = user;
 
     const resultado = window._invResultadoActual;
     const f = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
@@ -1058,8 +1057,6 @@
     let msg;
     if (resultado) {
       const { capital, ganancia, total, tasa } = resultado;
-      try { await saveInvestmentRequest(user.uid, { amount: capital, profit: ganancia, total, rate: tasa }); }
-      catch(e) { console.error("Error guardando inversión:", e); }
       msg =
 `Buenas, mi nombre es *${nombre}*.
 
@@ -1071,6 +1068,8 @@ Me interesa iniciar una inversión con A&A bajo las siguientes condiciones:
 🏆 *Total al finalizar el mes:* ${f(Math.round(total))}
 
 Quedo atento/a a sus indicaciones para formalizar la inversión. Muchas gracias. 🙏`;
+      // Guardar en Firestore sin bloquear
+      saveInvestmentRequest(user.uid, { amount: capital, profit: ganancia, total, rate: tasa }).catch(console.error);
     } else {
       msg =
 `Buenas, mi nombre es *${nombre}*.

@@ -281,7 +281,9 @@
       background:linear-gradient(135deg,#25d366,#1aad54);
       box-shadow:0 6px 30px rgba(37,211,102,.55);
       animation:fadeInFloat 1s ease 2s both, floatWA 3s ease-in-out 3s infinite;
+      transition:transform 0.2s, opacity 0.2s;
     }
+    .whatsapp-float:hover { transform:scale(1.08); }
     .whatsapp-float svg { width:32px;height:32px;fill:#fff; }
     @keyframes fadeInFloat { from{opacity:0;transform:scale(.4)} to{opacity:1;transform:scale(1)} }
     @keyframes floatWA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
@@ -731,8 +733,7 @@
   closeModalBtn.addEventListener('click', hideModal);
 
   // =========================================================
-  // ✅ FIX PRINCIPAL: solicitarInversion usa window._currentUser
-  //    y window._invResultadoActual (definidos en el script normal)
+  // ✅ SOLICITAR INVERSIÓN (botón grande) con verificación de sesión
   // =========================================================
   window.solicitarInversion = async function() {
     const resultado = window._invResultadoActual;
@@ -752,8 +753,15 @@
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
-  // ✅ FIX: abrirWhatsAppGeneral usa window._WHATSAPP_NUMBER
+  // =========================================================
+  // ✅ BOTÓN FLOTANTE DE WHATSAPP también requiere inicio de sesión
+  // =========================================================
   window.abrirWhatsAppGeneral = function() {
+    // Verificar si hay sesión activa
+    if (!window._currentUser) {
+      showModal();  // Mostrar modal de login
+      return;
+    }
     const msg = `Hola A&A! 👋 Me interesa obtener información sobre sus inversiones. ¿Me pueden ayudar?`;
     window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
@@ -765,7 +773,7 @@
 <!-- ===== SIMULADOR (script normal) ===== -->
 <script>
   // ✅ Todas las vars compartidas en window._ para que el módulo las lea
-  window._WHATSAPP_NUMBER    = '573052131345'; // 👈 Cambia por tu número
+  window._WHATSAPP_NUMBER    = '573052131345'; // 👈 Cambia por tu número de WhatsApp (ej: 573001234567)
   window._currentUser        = null;           // Firebase lo actualiza
   window._invResultadoActual = null;
 
@@ -823,6 +831,7 @@
 
     // Mostrar aviso si no hay sesión activa
     if (!window._currentUser) loginNotice.style.display = 'flex';
+    else loginNotice.style.display = 'none';
   }
 
   function animarValor(id, final) {
@@ -836,14 +845,6 @@
   }
 
   // Scroll reveal
-  new IntersectionObserver((entries, obs) => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } });
-  }, { threshold:.1, rootMargin:'0px 0px -50px 0px' })
-  .observe(...[...document.querySelectorAll('.reveal')].map(el => (obs => { obs.observe(el); return el; })(
-    new IntersectionObserver((entries, o) => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); o.unobserve(e.target); } }), { threshold:.1, rootMargin:'0px 0px -50px 0px' })
-  )));
-
-  // Reinicializar observer correctamente
   (() => {
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } });

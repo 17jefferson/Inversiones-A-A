@@ -35,7 +35,6 @@
     html { scroll-behavior: smooth; }
     body { font-family: var(--font-b); background: var(--bg-deep); color: var(--text-primary); overflow-x: hidden; line-height: 1.65; }
 
-    /* Noise */
     body::after {
       content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
@@ -67,7 +66,6 @@
       display:flex; align-items:center; justify-content:center;
       font-size:0.85rem; color:#000; font-weight:800;
     }
-    .logo span { color:var(--accent); }
 
     .nav-links { display:flex; gap:28px; list-style:none; align-items:center; }
     .nav-links a { color:var(--text-muted); text-decoration:none; font-size:.88rem; font-weight:500; transition:color .25s; }
@@ -80,39 +78,18 @@
     .nav-cta:hover { transform:translateY(-2px) scale(1.04) !important; box-shadow:0 0 28px var(--accent-glow) !important; background:#ff2a2a !important; }
 
     .user-info {
-      background:rgba(229,9,20,0.15);
-      border-left:2px solid var(--accent);
-      padding:5px 15px;
-      border-radius:40px;
-      font-size:.8rem;
-      font-weight:600;
-      display:flex;
-      align-items:center;
-      gap:12px;
+      background:rgba(229,9,20,0.15); border-left:2px solid var(--accent);
+      padding:5px 15px; border-radius:40px; font-size:.8rem; font-weight:600;
+      display:flex; align-items:center; gap:12px;
     }
-    .user-email {
-      max-width:150px;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-    }
+    .user-email { max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     .logout-btn {
-      background:var(--accent);
-      border:none;
-      color:#fff;
-      padding:4px 12px;
-      border-radius:30px;
-      font-size:.7rem;
-      font-weight:bold;
-      cursor:pointer;
-      transition:all .2s;
+      background:var(--accent); border:none; color:#fff; padding:4px 12px;
+      border-radius:30px; font-size:.7rem; font-weight:bold; cursor:pointer; transition:all .2s;
     }
-    .logout-btn:hover {
-      background:#ff2a2a;
-      transform:scale(1.02);
-    }
+    .logout-btn:hover { background:#ff2a2a; transform:scale(1.02); }
 
-    /* HERO (simplificada) */
+    /* HERO */
     .hero {
       min-height:80vh; display:flex; align-items:center; justify-content:center;
       padding:120px 5% 60px; position:relative; overflow:hidden;
@@ -123,7 +100,6 @@
       background-size:60px 60px;
       mask-image:radial-gradient(ellipse 70% 60% at 50% 50%,black 30%,transparent 100%);
     }
-
     .orb { position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; will-change:transform; }
     .orb-1 { width:700px;height:700px;opacity:.28; background:radial-gradient(circle,var(--accent) 0%,transparent 65%); top:-250px;left:-200px; animation:orb1 12s ease-in-out infinite; }
     .orb-2 { width:600px;height:600px;opacity:.22; background:radial-gradient(circle,var(--accent2) 0%,transparent 65%); bottom:-200px;right:-150px; animation:orb2 10s ease-in-out infinite; }
@@ -131,27 +107,21 @@
     @keyframes orb2 { 0%,100%{transform:translate(0,0) scale(1)} 35%{transform:translate(-50px,40px) scale(1.06)} 65%{transform:translate(40px,-35px) scale(.96)} }
 
     .hero-inner { max-width:900px;width:100%; margin:0 auto; text-align:center; position:relative;z-index:1; }
-
     .hero-badge {
       display:inline-flex;align-items:center;gap:10px;
       background:rgba(229,9,20,.08); border:1px solid rgba(229,9,20,.28);
-      border-radius:50px; padding:7px 18px;
-      font-size:.78rem;font-weight:700;color:var(--accent);
-      margin-bottom:26px; letter-spacing:.5px;
-      animation:fadeUp .6s ease both;
+      border-radius:50px; padding:7px 18px; font-size:.78rem;font-weight:700;color:var(--accent);
+      margin-bottom:26px; letter-spacing:.5px; animation:fadeUp .6s ease both;
     }
     .badge-dot { width:7px;height:7px;background:var(--accent);border-radius:50%; animation:pulseDot 2s ease-in-out infinite; }
     @keyframes pulseDot { 0%,100%{box-shadow:0 0 0 0 rgba(229,9,20,.5)} 50%{box-shadow:0 0 0 5px rgba(229,9,20,0)} }
-
     .hero-title {
       font-family:var(--font-d); font-size:clamp(2.5rem,5vw,3.9rem);
       font-weight:800; line-height:1.07; letter-spacing:-2px; margin-bottom:22px;
       animation:fadeUp .65s ease .1s both;
     }
     .gradient-text { background:linear-gradient(120deg,var(--accent) 0%,var(--accent2) 100%); -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
-
     .hero-subtitle { font-size:1.05rem;color:var(--text-muted);max-width:600px;margin:0 auto 22px;line-height:1.7; animation:fadeUp .65s ease .2s both; }
-
     .hours-badge {
       display:inline-flex;align-items:center;gap:9px;
       background:rgba(229,9,20,.08);border:1px solid rgba(229,9,20,.25);
@@ -159,20 +129,17 @@
       font-size:.84rem;font-weight:500;color:var(--accent2);
       animation:fadeUp .65s ease .25s both;
     }
-
     @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
 
-    /* INVESTMENT SIMULATOR */
+    /* SIMULADOR */
     .inv-simulator {
       padding:80px 5% 100px;
       background:linear-gradient(180deg,transparent 0%,rgba(15,15,15,0.8) 20%,rgba(15,15,15,0.8) 80%,transparent 100%);
     }
     .inv-simulator .simulator-container { max-width:860px;margin:0 auto; }
-
     .inv-card {
       background: linear-gradient(135deg, #0F0F0F 0%, #0A0A0A 50%, #0F0F0F 100%);
-      border:1px solid rgba(229,9,20,0.2);
-      border-radius:var(--radius-xl);
+      border:1px solid rgba(229,9,20,0.2); border-radius:var(--radius-xl);
       padding:50px 50px 44px;
       box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 60px rgba(229,9,20,0.05);
       position:relative;overflow:hidden;
@@ -181,51 +148,37 @@
       content:'';position:absolute;top:0;left:0;right:0;height:3px;
       background:linear-gradient(90deg,#E50914,#B91C1C,#E50914);
       border-radius:var(--radius-xl) var(--radius-xl) 0 0;
-      background-size:200% 100%;
-      animation:investGrad 3s linear infinite;
+      background-size:200% 100%; animation:investGrad 3s linear infinite;
     }
     @keyframes investGrad { 0%{background-position:0% 0%} 100%{background-position:200% 0%} }
     .inv-card::after {
-      content:'';position:absolute;top:-100px;left:-80px;
-      width:300px;height:300px;
-      background:radial-gradient(circle,rgba(229,9,20,0.06) 0%,transparent 70%);
-      pointer-events:none;
+      content:'';position:absolute;top:-100px;left:-80px; width:300px;height:300px;
+      background:radial-gradient(circle,rgba(229,9,20,0.06) 0%,transparent 70%); pointer-events:none;
     }
-
     .inv-tasa-bar {
-      background:rgba(229,9,20,0.07);
-      border:1px solid rgba(229,9,20,0.2);
-      border-radius:12px;padding:13px 18px;
-      font-size:.83rem;color:#E50914;
+      background:rgba(229,9,20,0.07); border:1px solid rgba(229,9,20,0.2);
+      border-radius:12px;padding:13px 18px; font-size:.83rem;color:#E50914;
       display:flex;align-items:center;justify-content:center;
       gap:10px;margin-bottom:32px;flex-wrap:wrap;text-align:center;
     }
     .inv-tasa-bar strong { font-weight:700;color:var(--text-primary); }
-
     .sim-grid { display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:28px; }
     .field-group { display:flex;flex-direction:column;gap:10px; }
     .field-label { font-size:.8rem;font-weight:700;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;display:flex;align-items:center;gap:6px; }
     .field-input-wrapper { position:relative; }
     .field-prefix { position:absolute;left:16px;top:50%;transform:translateY(-50%);font-family:var(--font-d);font-weight:700;color:var(--accent);font-size:1.1rem;pointer-events:none; }
-
     input[type="number"] {
       width:100%;background:rgba(255,255,255,.035);border:1px solid var(--border);border-radius:14px;
       padding:17px 16px 17px 38px;font-family:var(--font-d);font-size:1.25rem;font-weight:700;
       color:var(--text-primary);outline:none;transition:all .25s var(--ease);-moz-appearance:textfield;
     }
     input[type="number"]:focus { border-color:var(--accent);background:rgba(229,9,20,.045);box-shadow:0 0 0 4px rgba(229,9,20,.12); }
-
     .slider-wrap { margin-top:8px; }
     input[type="range"] { width:100%;-webkit-appearance:none;height:5px;background:rgba(255,255,255,.08);border-radius:3px;outline:none;cursor:pointer; }
     input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none;width:20px;height:20px;background:var(--accent);border-radius:50%;border:3px solid var(--bg-card);box-shadow:0 0 0 2px var(--accent);transition:all .25s var(--spring); }
     .range-labels { display:flex;justify-content:space-between;font-size:.72rem;color:var(--text-dim);margin-top:4px; }
-
-    .rate-selector {
-      display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px;
-    }
-    .rate-track {
-      flex:1; display:flex; align-items:center; gap:8px;
-    }
+    .rate-selector { display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px; }
+    .rate-track { flex:1; display:flex; align-items:center; gap:8px; }
     input[type="range"].inv-range {
       width:100%;-webkit-appearance:none;height:5px;
       background:linear-gradient(90deg, #E50914 var(--fill,50%), rgba(255,255,255,.08) var(--fill,50%));
@@ -238,30 +191,30 @@
       box-shadow:0 0 0 2px #E50914, 0 0 15px rgba(229,9,20,.4);
       transition:all .25s var(--spring);
     }
-    .rate-display {
-      font-family:var(--font-d);font-weight:800;font-size:1.4rem;
-      color:#E50914;min-width:52px;text-align:right;
-      text-shadow:0 0 20px rgba(229,9,20,.5);
-    }
-
-    /* Investment result boxes */
+    .rate-display { font-family:var(--font-d);font-weight:800;font-size:1.4rem;color:#E50914;min-width:52px;text-align:right;text-shadow:0 0 20px rgba(229,9,20,.5); }
     .inv-result-box {
       background:rgba(255,255,255,.025);border:1px solid rgba(229,9,20,0.1);
-      border-radius:16px;padding:22px;text-align:center;
-      transition:all .25s var(--ease);
+      border-radius:16px;padding:22px;text-align:center; transition:all .25s var(--ease);
     }
     .inv-result-box:hover { border-color:rgba(229,9,20,.3); }
     .inv-result-box.inv-highlight {
-      background:rgba(229,9,20,0.08);
-      border-color:rgba(229,9,20,0.35);
-      box-shadow:0 0 30px rgba(229,9,20,.12);
+      background:rgba(229,9,20,0.08); border-color:rgba(229,9,20,0.35); box-shadow:0 0 30px rgba(229,9,20,.12);
     }
     .inv-result-box.inv-highlight .result-value { color:#E50914; }
     .result-value { font-family:var(--font-d);font-size:1.85rem;font-weight:800;color:var(--text-primary);letter-spacing:-1px; }
     .result-label { font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px; }
     .result-note { font-size:.7rem;color:var(--text-dim);margin-top:4px; }
 
-    /* Invest WA button */
+    /* Login notice */
+    .login-notice {
+      background:rgba(229,9,20,0.08); border:1px solid rgba(229,9,20,0.25);
+      border-radius:12px; padding:14px 18px; margin-bottom:16px;
+      font-size:.85rem; color:var(--accent);
+      display:none; align-items:center; gap:10px;
+      cursor:pointer; transition:all .2s;
+    }
+    .login-notice:hover { background:rgba(229,9,20,0.14); }
+
     .btn-invest-wa {
       width:100%;padding:22px 30px;
       background:linear-gradient(135deg,#25d366 0%,#1aad54 60%,#128c3e 100%);
@@ -271,12 +224,12 @@
       transition:all .3s var(--spring);position:relative;overflow:hidden;
       box-shadow:0 8px 30px rgba(37,211,102,.35);letter-spacing:-.3px;
     }
-    .btn-invest-wa:disabled { opacity:.4;cursor:not-allowed;transform:none;box-shadow:none; }
+    .btn-invest-wa:hover { transform:translateY(-3px) scale(1.01); box-shadow:0 14px 40px rgba(37,211,102,.5); }
     .btn-invest-wa .wa-icon { width:28px;height:28px;fill:#fff;flex-shrink:0; }
 
     .section-tag-gold { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#E50914;margin-bottom:12px; }
 
-    /* BENEFITS, HOW, TESTIMONIALS, FOOTER (mismo estilo, sin cambios) */
+    /* SECCIONES */
     section { position:relative;z-index:1; }
     .section-header { text-align:center;margin-bottom:56px; }
     .section-tag { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px; }
@@ -285,10 +238,7 @@
 
     .benefits { padding:100px 5%; }
     .benefits-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1100px;margin:0 auto; }
-    .benefit-card {
-      background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 30px;
-      transition:all .3s var(--spring);
-    }
+    .benefit-card { background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px 30px; transition:all .3s var(--spring); }
     .benefit-card:hover { border-color:rgba(229,9,20,.3);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 35px rgba(229,9,20,.1); }
     .benefit-icon { width:56px;height:56px;background:rgba(229,9,20,.1);border:1px solid rgba(229,9,20,.2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:20px; }
     .benefit-title { font-family:var(--font-d);font-size:1.12rem;font-weight:700;margin-bottom:10px; }
@@ -324,7 +274,6 @@
     .footer-copy { font-size:.82rem;color:var(--text-dim); }
     .footer-legal { font-size:.78rem;color:var(--text-dim);max-width:500px;text-align:right;line-height:1.5; }
 
-    /* FLOATING WA */
     .whatsapp-float {
       position:fixed;bottom:28px;right:28px;z-index:300;
       width:64px;height:64px;border-radius:50%;border:none;cursor:pointer;
@@ -337,35 +286,56 @@
     @keyframes fadeInFloat { from{opacity:0;transform:scale(.4)} to{opacity:1;transform:scale(1)} }
     @keyframes floatWA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
 
-    /* REVEAL */
     .reveal { opacity:0;transform:translateY(38px);transition:opacity .7s var(--ease),transform .7s var(--ease); }
     .reveal.revealed { opacity:1;transform:translateY(0); }
 
-    /* MODAL AUTH (Google) */
+    /* MODAL AUTH */
     .auth-modal {
       position:fixed; top:0; left:0; width:100%; height:100%;
       background:rgba(0,0,0,0.95); backdrop-filter:blur(8px);
-      display:flex; align-items:center; justify-content:center;
-      z-index:1000;
+      display:flex; align-items:center; justify-content:center; z-index:1000;
     }
     .auth-card {
-      background:#0F0F0F; padding:30px; border-radius:28px;
-      max-width:400px; width:90%; border:1px solid rgba(229,9,20,0.4);
-      box-shadow:0 0 50px rgba(229,9,20,0.3);
-      text-align:center;
+      background:#0F0F0F; padding:40px 36px; border-radius:28px;
+      max-width:420px; width:90%; border:1px solid rgba(229,9,20,0.4);
+      box-shadow:0 0 60px rgba(229,9,20,0.25); text-align:center;
+      animation:fadeUp .4s ease both;
     }
-    .auth-card h2 { color:#E50914; margin-bottom:20px; font-family:var(--font-d); }
-    .auth-card .google-btn {
-      background:#4285F4; color:white; border:none; border-radius:12px;
-      padding:12px 20px; font-size:1rem; font-weight:bold;
-      display:flex; align-items:center; justify-content:center; gap:10px;
+    .auth-logo { font-family:var(--font-d); font-size:2rem; font-weight:800; color:#E50914; margin-bottom:8px; }
+    .auth-sub { color:var(--text-muted); font-size:.9rem; margin-bottom:28px; }
+    .google-btn {
+      background:#fff; color:#333; border:none; border-radius:12px;
+      padding:14px 20px; font-size:.95rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center; gap:12px;
       width:100%; cursor:pointer; transition:all .2s;
+      box-shadow:0 2px 12px rgba(0,0,0,.3);
     }
-    .auth-card .google-btn:hover { background:#3367D6; transform:scale(1.02); }
-    .auth-card .close-btn {
-      background:#333; color:white; border:none; border-radius:12px;
-      padding:10px; width:100%; margin-top:15px; cursor:pointer;
+    .google-btn:hover { background:#f5f5f5; transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,.4); }
+    .divider { display:flex; align-items:center; gap:12px; margin:20px 0; color:var(--text-dim); font-size:.8rem; }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background:rgba(255,255,255,.08); }
+    .email-form { display:flex; flex-direction:column; gap:12px; }
+    .email-form input {
+      background:rgba(255,255,255,.06); border:1px solid rgba(229,9,20,.2);
+      border-radius:12px; padding:14px 16px; color:#fff;
+      font-size:.95rem; outline:none; transition:all .2s; -moz-appearance:textfield;
     }
+    .email-form input::placeholder { color:var(--text-dim); }
+    .email-form input:focus { border-color:var(--accent); background:rgba(229,9,20,.06); }
+    .email-btn {
+      background:var(--accent); color:#fff; border:none; border-radius:12px;
+      padding:14px; font-size:.95rem; font-weight:700; cursor:pointer; transition:all .2s;
+    }
+    .email-btn:hover:not(:disabled) { background:#ff2020; transform:translateY(-2px); }
+    .email-btn:disabled { opacity:.6; cursor:not-allowed; }
+    .toggle-mode { background:none; border:none; color:var(--accent); font-size:.85rem; cursor:pointer; margin-top:6px; text-decoration:underline; }
+    .close-btn {
+      background:rgba(255,255,255,.06); color:var(--text-muted); border:none; border-radius:12px;
+      padding:11px; width:100%; margin-top:14px; cursor:pointer; font-size:.85rem; transition:background .2s;
+    }
+    .close-btn:hover { background:rgba(255,255,255,.1); }
+    .auth-msg { font-size:.82rem; margin-top:10px; padding:10px; border-radius:8px; }
+    .auth-msg.error   { background:rgba(229,9,20,.15); color:#ff6b6b; border:1px solid rgba(229,9,20,.3); }
+    .auth-msg.success { background:rgba(37,211,102,.1); color:#25d366; border:1px solid rgba(37,211,102,.3); }
 
     @media(max-width:900px){
       .sim-grid{grid-template-columns:1fr}
@@ -375,6 +345,7 @@
       .footer-bottom{flex-direction:column;text-align:center}
       .footer-legal{text-align:center}
       nav .nav-links li:not(:last-child){display:none}
+      .inv-card{padding:32px 22px 28px}
     }
   </style>
 </head>
@@ -384,7 +355,7 @@
 <nav id="navbar">
   <a href="#" class="logo">
     <div class="logo-icon">A</div>
-    <span style="color:#FF0000; font-weight:bold;">A&amp;A</span>
+    <span style="color:#FF0000;font-weight:bold;">A&amp;A</span>
   </a>
   <ul class="nav-links">
     <li><a href="#invertir">Invertir</a></li>
@@ -398,7 +369,7 @@
   </div>
 </nav>
 
-<!-- HERO (simplificada) -->
+<!-- HERO -->
 <section class="hero">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
@@ -410,7 +381,7 @@
   </div>
 </section>
 
-<!-- SIMULADOR DE INVERSIÓN (única sección principal) -->
+<!-- SIMULADOR -->
 <section class="inv-simulator" id="invertir">
   <div class="simulator-container">
     <div class="section-header reveal">
@@ -425,7 +396,6 @@
       </div>
 
       <div class="sim-grid">
-        <!-- Capital a invertir -->
         <div class="field-group">
           <label class="field-label" style="color:#E50914;">💰 Capital a invertir</label>
           <div class="field-input-wrapper">
@@ -438,7 +408,6 @@
           </div>
         </div>
 
-        <!-- Tasa de rendimiento -->
         <div class="field-group">
           <label class="field-label" style="color:#E50914;">📊 Tasa de rendimiento mensual</label>
           <div class="rate-selector">
@@ -449,23 +418,19 @@
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px;">
             <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(5)">
-              <div style="font-weight:800;color:#E50914;">5%</div>
-              <div style="font-size:.68rem;">Plan Básico</div>
+              <div style="font-weight:800;color:#E50914;">5%</div><div style="font-size:.68rem;">Plan Básico</div>
             </div>
             <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(7.5)">
-              <div style="font-weight:800;color:#E50914;">7.5%</div>
-              <div style="font-size:.68rem;">Plan Plus</div>
+              <div style="font-weight:800;color:#E50914;">7.5%</div><div style="font-size:.68rem;">Plan Plus</div>
             </div>
             <div style="background:rgba(229,9,20,0.07);border:1px solid rgba(229,9,20,0.2);border-radius:10px;padding:8px;text-align:center;cursor:pointer;" onclick="setTasa(10)">
-              <div style="font-weight:800;color:#E50914;">10%</div>
-              <div style="font-size:.68rem;">Plan Premium</div>
+              <div style="font-weight:800;color:#E50914;">10%</div><div style="font-size:.68rem;">Plan Premium</div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Results -->
-      <div class="sim-results" id="inv-results" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0;">
+      <div id="inv-results" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:28px 0;">
         <div class="inv-result-box">
           <div class="result-label">💵 Capital invertido</div>
           <div class="result-value" id="inv-r-capital">$0</div>
@@ -483,14 +448,16 @@
         </div>
       </div>
 
-      <!-- WA Button -->
-      <button class="btn-invest-wa" id="btn-inv-wa" onclick="solicitarInversion()" disabled>
-        <svg class="wa-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-        <div class="wa-text-block">
-          <span class="wa-main-text">Quiero invertir por WhatsApp</span>
-          <span class="wa-sub-text">Habla con un asesor · Sin costo</span>
+      <!-- Aviso login (solo si no hay sesión) -->
+      <div id="loginNotice" class="login-notice" onclick="window.mostrarModal && window.mostrarModal()">
+        🔐 Inicia sesión para enviar tu solicitud de inversión por WhatsApp
+      </div>
+
+      <button class="btn-invest-wa" id="btn-inv-wa" onclick="solicitarInversion()">
+        <svg class="wa-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <div>
+          <div style="font-size:1.05rem;">Quiero invertir por WhatsApp</div>
+          <div style="font-size:.75rem;opacity:.85;font-weight:500;">Habla con un asesor · Sin costo</div>
         </div>
       </button>
     </div>
@@ -528,7 +495,7 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
+<!-- TESTIMONIOS -->
 <section class="testimonials">
   <div class="section-header reveal">
     <div class="section-tag">Testimonios</div>
@@ -549,187 +516,273 @@
       <div class="footer-col"><h4>Empresa</h4><ul class="footer-links"><li><a href="#">Sobre nosotros</a></li><li><a href="#">Términos y condiciones</a></li><li><a href="#">Política de privacidad</a></li></ul></div>
       <div class="footer-col"><h4>Contacto</h4><ul class="footer-links"><li><a href="#">WhatsApp</a></li><li><a href="#">Horario: 8am – 5pm</a></li><li><a href="#">Lunes a Viernes</a></li></ul></div>
     </div>
-    <div class="footer-bottom"><p class="footer-copy">© 2024 A&amp;A. Todos los derechos reservados.</p><p class="footer-legal">Las tasas mostradas son referenciales. Invertir implica riesgos, consulte los términos antes de realizar cualquier operación.</p></div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 A&amp;A. Todos los derechos reservados.</p>
+      <p class="footer-legal">Las tasas mostradas son referenciales. Invertir implica riesgos, consulte los términos antes de realizar cualquier operación.</p>
+    </div>
   </div>
 </footer>
 
-<button class="whatsapp-float" onclick="abrirWhatsAppGeneral()" title="Contáctanos por WhatsApp"><div class="wa-ring"></div><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>
+<button class="whatsapp-float" onclick="abrirWhatsAppGeneral()" title="Contáctanos por WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</button>
 
-<!-- MODAL AUTH (Google Sign-In) -->
+<!-- MODAL AUTH -->
 <div id="authModal" class="auth-modal" style="display:none;">
   <div class="auth-card">
-    <h2>Accede a A&amp;A</h2>
+    <div class="auth-logo">A&amp;A</div>
+    <div class="auth-sub" id="authSubTitle">Accede a tu cuenta para invertir</div>
+
     <button id="googleSignInBtn" class="google-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#FFFFFF" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#FFFFFF" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FFFFFF" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#FFFFFF" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-      Iniciar sesión con Google
+      <svg width="20" height="20" viewBox="0 0 48 48">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      Continuar con Google
     </button>
-    <button class="close-btn" id="closeModal">Cerrar</button>
+
+    <div class="divider">o con email</div>
+
+    <div class="email-form">
+      <input type="email" id="authEmail" placeholder="tu@email.com" autocomplete="email" />
+      <input type="password" id="authPassword" placeholder="Contraseña (mín. 6 caracteres)" autocomplete="current-password" />
+      <button class="email-btn" id="emailActionBtn" onclick="handleEmailAuth()">Iniciar sesión</button>
+      <button class="toggle-mode" onclick="toggleAuthMode()">¿No tienes cuenta? Regístrate aquí</button>
+      <div id="authMsg" class="auth-msg" style="display:none;"></div>
+    </div>
+
+    <button class="close-btn" id="closeModal">Cancelar</button>
   </div>
 </div>
 
+<!-- ===== FIREBASE importmap ===== -->
 <script type="importmap">
-  {
-    "imports": {
-      "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
-      "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
-      "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
-    }
+{
+  "imports": {
+    "firebase/app":       "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+    "firebase/auth":      "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+    "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"
   }
+}
 </script>
 
+<!-- ===== FIREBASE MODULE ===== -->
 <script type="module">
   import { initializeApp } from "firebase/app";
-  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
-  import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+  import {
+    getAuth, signInWithPopup, GoogleAuthProvider,
+    signOut, onAuthStateChanged,
+    createUserWithEmailAndPassword, signInWithEmailAndPassword
+  } from "firebase/auth";
+  import {
+    getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion
+  } from "firebase/firestore";
 
-  // 🔥 REEMPLAZA CON TU CONFIGURACIÓN DE FIREBASE 🔥
- const firebaseConfig = {
-  apiKey: "AIzaSyD47LwjVajUEoa1SFY1zlN0RjgiqL025Wg",
-  authDomain: "inversiones-aa.firebaseapp.com",
-  projectId: "inversiones-aa",
-  storageBucket: "inversiones-aa.firebasestorage.app",
-  messagingSenderId: "661902970671",
-  appId: "1:661902970671:web:3530f7fe1de2e32ff3dbda",
-  measurementId: "G-XCDTJ27K92"  // opcional
-};
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+  // 🔥 TU CONFIG DE FIREBASE
+  const firebaseConfig = {
+    apiKey:            "AIzaSyD47LwjVajUEoa1SFY1zlN0RjgiqL025Wg",
+    authDomain:        "inversiones-aa.firebaseapp.com",
+    projectId:         "inversiones-aa",
+    storageBucket:     "inversiones-aa.firebasestorage.app",
+    messagingSenderId: "661902970671",
+    appId:             "1:661902970671:web:3530f7fe1de2e32ff3dbda"
+  };
+
+  const app      = initializeApp(firebaseConfig);
+  const auth     = getAuth(app);
+  const db       = getFirestore(app);
   const provider = new GoogleAuthProvider();
 
-  // Elementos DOM
-  const modal = document.getElementById('authModal');
-  const userInfoArea = document.getElementById('userInfoArea');
+  // --- DOM ---
+  const modal         = document.getElementById('authModal');
+  const userInfoArea  = document.getElementById('userInfoArea');
   const userEmailSpan = document.getElementById('userEmailDisplay');
-  const accountBtn = document.getElementById('accountBtn');
+  const accountBtn    = document.getElementById('accountBtn');
   const closeModalBtn = document.getElementById('closeModal');
-  const googleBtn = document.getElementById('googleSignInBtn');
+  const googleBtn     = document.getElementById('googleSignInBtn');
+  const loginNotice   = document.getElementById('loginNotice');
 
-  let currentUser = null;
+  // --- Helpers UI ---
+  const showModal  = () => { modal.style.display = 'flex'; };
+  const hideModal  = () => { modal.style.display = 'none'; clearAuthMsg(); };
 
-  function showModal() { modal.style.display = 'flex'; }
-  function hideModal() { modal.style.display = 'none'; }
+  // ✅ Exponer globalmente para que el HTML inline lo pueda llamar
+  window.mostrarModal = showModal;
 
-  // Cargar/crear documento de usuario en Firestore
-  async function loadOrCreateUser(uid, email) {
-    const userRef = doc(db, "users", uid);
-    const docSnap = await getDoc(userRef);
-    if (!docSnap.exists()) {
-      await setDoc(userRef, {
-        email: email,
-        balance: 0,
-        investments: [],
-        createdAt: new Date()
-      });
-    }
+  function showAuthMsg(msg, type = 'error') {
+    const el = document.getElementById('authMsg');
+    el.textContent = msg; el.className = 'auth-msg ' + type; el.style.display = 'block';
+  }
+  function clearAuthMsg() {
+    const el = document.getElementById('authMsg');
+    el.style.display = 'none';
   }
 
-  // Guardar solicitud de inversión
-  async function saveInvestmentRequest(invData) {
-    if (!currentUser) throw new Error("No autenticado");
-    const userRef = doc(db, "users", currentUser.uid);
-    await updateDoc(userRef, {
-      investments: arrayUnion({
-        ...invData,
-        date: new Date(),
-        status: "pending"
-      })
+  // --- Firestore: crear/cargar usuario ---
+  async function loadOrCreateUser(uid, email) {
+    try {
+      const ref  = doc(db, "users", uid);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        await setDoc(ref, { email, balance: 0, investments: [], createdAt: new Date() });
+      }
+    } catch(e) { console.error("Firestore:", e); }
+  }
+
+  // --- Guardar inversión ---
+  async function saveInvestmentRequest(uid, data) {
+    const ref = doc(db, "users", uid);
+    await updateDoc(ref, {
+      investments: arrayUnion({ ...data, date: new Date().toISOString(), status: "pending" })
     });
   }
 
-  // Estado de autenticación
+  // --- Auth state ---
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      currentUser = user;
+      window._currentUser = user;
       userEmailSpan.textContent = user.email;
       userInfoArea.style.display = 'flex';
+      accountBtn.style.display   = 'none';
+      loginNotice.style.display  = 'none';
       loadOrCreateUser(user.uid, user.email);
-      // Habilitar botón de inversión
-      const invBtn = document.getElementById('btn-inv-wa');
-      if (invBtn) invBtn.disabled = false;
     } else {
-      currentUser = null;
+      window._currentUser        = null;
       userInfoArea.style.display = 'none';
-      const invBtn = document.getElementById('btn-inv-wa');
-      if (invBtn) invBtn.disabled = true;
+      accountBtn.style.display   = '';
+      // Mostrar aviso solo si ya hay un cálculo pendiente
+      if (window._invResultadoActual) loginNotice.style.display = 'flex';
     }
   });
 
-  // Google Sign-In
+  // --- Google Sign-In ---
   googleBtn.addEventListener('click', async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      console.log("Usuario logueado:", result.user);
+      await signInWithPopup(auth, provider);
       hideModal();
+    } catch (e) {
+      console.error(e);
+      showAuthMsg("No se pudo iniciar sesión con Google. Intenta de nuevo.");
+    }
+  });
+
+  // --- Email Auth ---
+  let isRegisterMode = false;
+
+  window.toggleAuthMode = () => {
+    isRegisterMode = !isRegisterMode;
+    document.getElementById('emailActionBtn').textContent = isRegisterMode ? 'Crear cuenta' : 'Iniciar sesión';
+    document.querySelector('.toggle-mode').textContent    = isRegisterMode ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate aquí';
+    document.getElementById('authSubTitle').textContent  = isRegisterMode ? 'Crea tu cuenta gratis' : 'Accede a tu cuenta para invertir';
+    clearAuthMsg();
+  };
+
+  window.handleEmailAuth = async () => {
+    const email    = document.getElementById('authEmail').value.trim();
+    const password = document.getElementById('authPassword').value;
+    if (!email || !password)   { showAuthMsg("Completa todos los campos."); return; }
+    if (password.length < 6)   { showAuthMsg("La contraseña debe tener al menos 6 caracteres."); return; }
+
+    const btn = document.getElementById('emailActionBtn');
+    btn.disabled = true; btn.textContent = 'Procesando...';
+    clearAuthMsg();
+
+    try {
+      if (isRegisterMode) {
+        await createUserWithEmailAndPassword(auth, email, password);
+        showAuthMsg("¡Cuenta creada! Bienvenido/a 🎉", 'success');
+        setTimeout(hideModal, 1200);
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+        hideModal();
+      }
     } catch (error) {
-      console.error("Error en Google Sign-In:", error);
-      alert("No se pudo iniciar sesión. Revisa la consola.");
+      const msgs = {
+        'auth/user-not-found':       'No existe una cuenta con ese email.',
+        'auth/wrong-password':       'Contraseña incorrecta.',
+        'auth/email-already-in-use': 'Ese email ya está registrado. Inicia sesión.',
+        'auth/invalid-email':        'El email no tiene un formato válido.',
+        'auth/invalid-credential':   'Email o contraseña incorrectos.',
+      };
+      showAuthMsg(msgs[error.code] || 'Ocurrió un error. Intenta de nuevo.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = isRegisterMode ? 'Crear cuenta' : 'Iniciar sesión';
     }
-  });
+  };
 
-  // Logout
-  document.getElementById('logoutBtn').addEventListener('click', async () => {
-    await signOut(auth);
-  });
+  ['authEmail','authPassword'].forEach(id =>
+    document.getElementById(id)?.addEventListener('keydown', e => {
+      if (e.key === 'Enter') window.handleEmailAuth();
+    })
+  );
 
-  // Mostrar modal al hacer clic en "Mi Cuenta"
-  accountBtn.addEventListener('click', (e) => {
+  // --- Logout ---
+  document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth));
+
+  // --- Botón "Mi Cuenta" ---
+  accountBtn.addEventListener('click', e => {
     e.preventDefault();
-    if (currentUser) {
-      alert(`Sesión iniciada como ${currentUser.email}`);
-    } else {
-      showModal();
-    }
+    window._currentUser ? alert(`Sesión activa: ${window._currentUser.email}`) : showModal();
   });
 
   closeModalBtn.addEventListener('click', hideModal);
 
-  // Función que se llamará desde el botón de inversión (global)
+  // =========================================================
+  // ✅ FIX PRINCIPAL: solicitarInversion usa window._currentUser
+  //    y window._invResultadoActual (definidos en el script normal)
+  // =========================================================
   window.solicitarInversion = async function() {
-    if (!invResultadoActual) return;
-    if (!currentUser) {
-      alert("Debes iniciar sesión para solicitar una inversión.");
-      showModal();
-      return;
-    }
-    const { capital, ganancia, total, tasa } = invResultadoActual;
-    const invData = {
-      amount: capital,
-      profit: ganancia,
-      total: total,
-      rate: tasa
-    };
-    await saveInvestmentRequest(invData);
-    const msg = `Hola A&A! 👋 Me interesa invertir con ustedes:\n\n💰 *Capital a invertir:* ${fmt(capital)}\n📈 *Tasa de rendimiento:* ${tasa}% mensual\n🏆 *Ganancia mensual:* ${fmt(Math.round(ganancia))}\n✅ *Total a recibir:* ${fmt(Math.round(total))}\n\n¿Me pueden dar más información sobre cómo invertir? 🙏`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+    const resultado = window._invResultadoActual;
+    if (!resultado) return;
+
+    // Sin sesión → abrir modal y salir
+    if (!window._currentUser) { showModal(); return; }
+
+    const { capital, ganancia, total, tasa } = resultado;
+
+    try {
+      await saveInvestmentRequest(window._currentUser.uid, { amount: capital, profit: ganancia, total, rate: tasa });
+    } catch(e) { console.error("Error guardando inversión:", e); }
+
+    const f   = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0}).format(v);
+    const msg = `Hola A&A! 👋 Me interesa invertir:\n\n💰 *Capital:* ${f(capital)}\n📈 *Tasa:* ${tasa}% mensual\n🏆 *Ganancia:* ${f(Math.round(ganancia))}\n✅ *Total:* ${f(Math.round(total))}\n\n¿Me dan más información? 🙏`;
+    window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
+  // ✅ FIX: abrirWhatsAppGeneral usa window._WHATSAPP_NUMBER
   window.abrirWhatsAppGeneral = function() {
     const msg = `Hola A&A! 👋 Me interesa obtener información sobre sus inversiones. ¿Me pueden ayudar?`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
+    window.open(`https://wa.me/${window._WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
-  // Exportar fmt para que lo use el código no-module
-  window.fmt = (v) => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
+  // Formateo accesible globalmente
+  window._fmt = v => new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
 </script>
 
+<!-- ===== SIMULADOR (script normal) ===== -->
 <script>
-  // ========== SIMULADOR DE INVERSIÓN (código no-module) ==========
-  const WHATSAPP_NUMBER = '573052131345'; // Cambia por tu número
+  // ✅ Todas las vars compartidas en window._ para que el módulo las lea
+  window._WHATSAPP_NUMBER    = '573052131345'; // 👈 Cambia por tu número
+  window._currentUser        = null;           // Firebase lo actualiza
+  window._invResultadoActual = null;
+
   let invTasa = 7.5;
-  let invResultadoActual = null;
 
   function fmt(v) {
-    return window.fmt ? window.fmt(v) : new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',minimumFractionDigits:0,maximumFractionDigits:0}).format(v);
+    return (window._fmt || (n => '$' + Math.round(n).toLocaleString('es-CO')))(v);
   }
 
-  const invMontoInput = document.getElementById('inv-monto');
+  const invMontoInput  = document.getElementById('inv-monto');
   const invMontoSlider = document.getElementById('inv-monto-slider');
-  const invTasaSlider = document.getElementById('inv-tasa-slider');
+  const invTasaSlider  = document.getElementById('inv-tasa-slider');
+  const loginNotice    = document.getElementById('loginNotice');
 
   window.actualizarTasaDisplay = function(v) {
     invTasa = parseFloat(v);
-    document.getElementById('inv-tasa-val').textContent = invTasa + '%';
+    document.getElementById('inv-tasa-val').textContent     = invTasa + '%';
     document.getElementById('inv-tasa-display').textContent = invTasa + '%';
     invTasaSlider.style.setProperty('--fill', ((invTasa - 5) / 5 * 100) + '%');
     calcularInversion();
@@ -745,66 +798,80 @@
     invMontoSlider.value = v;
     calcularInversion();
   });
+
   invMontoSlider.addEventListener('input', () => {
     invMontoInput.value = invMontoSlider.value;
-    const pct = ((invMontoSlider.value - 100000) / (10000000 - 100000) * 100);
-    invMontoSlider.style.setProperty('--fill', pct + '%');
+    invMontoSlider.style.setProperty('--fill', ((invMontoSlider.value - 100000) / (10000000 - 100000) * 100) + '%');
     calcularInversion();
   });
+
   invTasaSlider.addEventListener('input', () => actualizarTasaDisplay(invTasaSlider.value));
 
   function calcularInversion() {
     const capital = parseFloat(invMontoInput.value) || 0;
     if (capital < 100000) return;
+
     const ganancia = capital * (invTasa / 100);
-    const total = capital + ganancia;
-    invResultadoActual = { capital, ganancia, total, tasa: invTasa };
-    animarValor('inv-r-capital', capital);
+    const total    = capital + ganancia;
+
+    // ✅ Guardar en window para que el módulo Firebase lo lea
+    window._invResultadoActual = { capital, ganancia, total, tasa: invTasa };
+
+    animarValor('inv-r-capital',  capital);
     animarValor('inv-r-ganancia', ganancia);
-    animarValor('inv-r-total', total);
-    document.getElementById('inv-results').classList.add('visible');
-    const btnInv = document.getElementById('btn-inv-wa');
-    if (btnInv) btnInv.disabled = false;
+    animarValor('inv-r-total',    total);
+
+    // Mostrar aviso si no hay sesión activa
+    if (!window._currentUser) loginNotice.style.display = 'flex';
   }
 
   function animarValor(id, final) {
     const el = document.getElementById(id);
     const dur = 550, t0 = Date.now();
-    function tick() {
-      const p = Math.min((Date.now()-t0)/dur,1);
-      const e = 1 - Math.pow(1-p,3);
-      el.textContent = fmt(Math.round(final*e));
-      if(p<1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
+    (function tick() {
+      const p = Math.min((Date.now()-t0)/dur, 1);
+      el.textContent = fmt(Math.round(final * (1-Math.pow(1-p,3))));
+      if (p < 1) requestAnimationFrame(tick);
+    })();
   }
 
   // Scroll reveal
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('revealed');obs.unobserve(e.target);} });
-  },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+  }, { threshold:.1, rootMargin:'0px 0px -50px 0px' })
+  .observe(...[...document.querySelectorAll('.reveal')].map(el => (obs => { obs.observe(el); return el; })(
+    new IntersectionObserver((entries, o) => entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); o.unobserve(e.target); } }), { threshold:.1, rootMargin:'0px 0px -50px 0px' })
+  )));
+
+  // Reinicializar observer correctamente
+  (() => {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+    }, { threshold:.1, rootMargin:'0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  })();
 
   // Navbar scroll
-  window.addEventListener('scroll', () => {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
-  });
+  window.addEventListener('scroll', () =>
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40)
+  );
 
   // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
+  document.querySelectorAll('a[href^="#"]').forEach(a =>
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
-      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
-    });
-  });
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    })
+  );
 
-  // Inicializar
+  // Init
   window.addEventListener('DOMContentLoaded', () => {
-    invMontoInput.value = 500000;
+    invMontoInput.value  = 500000;
     invMontoSlider.value = 500000;
     actualizarTasaDisplay(7.5);
     calcularInversion();
   });
 </script>
+
 </body>
 </html>
